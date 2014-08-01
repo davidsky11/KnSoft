@@ -1,0 +1,103 @@
+{
+    "autoid7": [
+        {
+            "grade_1": [
+                {
+                    "id": "1",
+                    "grade_1_name": "安徽"
+                },
+                {
+                    "id": "2",
+                    "grade_1_name": "江苏"
+                },
+                {
+                    "id": "3",
+                    "grade_1_name": "浙江"
+                }
+            ]
+        },
+        {
+            "grade_2": [
+                {
+                    "id": "1",
+                    "grade_2_name": "合肥",
+                    "grade_1_id": "1"
+                },
+                {
+                    "id": "2",
+                    "grade_2_name": "巢湖",
+                    "grade_1_id": "1"
+                },
+                {
+                    "id": "3",
+                    "grade_2_name": "安庆",
+                    "grade_1_id": "1"
+                },
+                {
+                    "id": "4",
+                    "grade_2_name": "铜陵",
+                    "grade_1_id": "1"
+                },
+                {
+                    "id": "5",
+                    "grade_2_name": "马鞍山",
+                    "grade_1_id": "1"
+                },
+                {
+                    "id": "6",
+                    "grade_2_name": "芜湖",
+                    "grade_1_id": "1"
+                },
+                {
+                    "id": "7",
+                    "grade_2_name": "南京",
+                    "grade_1_id": "2"
+                },
+                {
+                    "id": "8",
+                    "grade_2_name": "徐州",
+                    "grade_1_id": "2"
+                },
+                {
+                    "id": "9",
+                    "grade_2_name": "苏州",
+                    "grade_1_id": "2"
+                }
+            ]
+        },
+        {
+            "grade_3": [
+                {
+                    "id": "1",
+                    "grade_3_name": "其林分部",
+                    "grade_2_id": "7"
+                },
+                {
+                    "id": "2",
+                    "grade_3_name": "南京机场分部",
+                    "grade_2_id": "7"
+                },
+                {
+                    "id": "3",
+                    "grade_3_name": "南京栖霞一部",
+                    "grade_2_id": "7"
+                },
+                {
+                    "id": "4",
+                    "grade_3_name": "南京栖霞二部",
+                    "grade_2_id": "7"
+                },
+                {
+                    "id": "5",
+                    "grade_3_name": "南京栖霞三部",
+                    "grade_2_id": "7"
+                },
+                {
+                    "id": "6",
+                    "grade_3_name": "南京栖霞郊区",
+                    "grade_2_id": "7"
+                }
+            ]
+        }
+    ]
+}

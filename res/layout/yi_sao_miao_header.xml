@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray" >
+
+    <TextView
+        android:id="@id/text_headerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="35.0sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="已扫描单据（最近4条）" />
+
+    <Button
+        android:id="@id/button_handInput"
+        android:layout_width="wrap_content"
+        android:layout_height="35.0sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/yellow"
+        android:text="手输" />
+
+</RelativeLayout>

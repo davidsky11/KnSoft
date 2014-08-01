@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_bg"
+    android:gravity="left"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/text_ceShi"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yi_sao_miao_background" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@id/button_yanChi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="延迟" />
+
+        <Button
+            android:id="@id/button_ceSu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="测速" />
+
+        <Button
+            android:id="@id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="返回" />
+    </RelativeLayout>
+
+</LinearLayout>

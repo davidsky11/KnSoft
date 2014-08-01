@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@id/progressBar_shangChuan"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@id/text_total"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="待上传记录总数：6" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="服务器未接受单据:" />
+
+    <ListView
+        android:id="@id/listView_fail"
+        android:layout_width="fill_parent"
+        android:layout_height="300.0dip"
+        android:background="@drawable/yi_sao_miao_background" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@id/button_shangChuan_begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="上传" />
+
+        <Button
+            android:id="@id/button_shangChuan_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="中止上传" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@id/button_fanHuiZhuJieMian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="返回主界面" />
+
+</LinearLayout>

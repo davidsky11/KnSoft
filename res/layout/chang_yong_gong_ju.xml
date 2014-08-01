@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/budgets"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@id/button_paiSongFanWei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.派送范围" />
+
+        <Button
+            android:id="@id/button_yunDanZhuiZong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.运单追踪" />
+
+        <Button
+            android:id="@id/button_chengXuGengXin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.程序更新" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@id/button_shiJianTongBu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.时间同步" />
+
+        <Button
+            android:id="@id/button_gengXinShuJu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.更新数据" />
+
+        <Button
+            android:id="@id/button_wangLuoCeShi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6.网络测试" />
+    </TableRow>
+
+    <Button
+        android:id="@id/button_back_cygj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="7.返回主界面" />
+
+</TableLayout>

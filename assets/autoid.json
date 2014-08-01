@@ -1,0 +1,61 @@
+{
+    "autoid7": [
+        {
+            "grade_1": [
+                {
+                    "id": "1",
+                    "grade_1_name": "安徽",
+                    "grade_1": [
+                        {
+                            "id": "1",
+                            "grade_2_name": "合肥",
+                            "grade_1_id": "1"
+                        }
+                    ]
+                },
+                {
+                    "id": "2",
+                    "grade_1_name": "江苏",
+                    "grade_2": [
+                        {
+                            "id": "7",
+                            "grade_2_name": "南京",
+                            "grade_1_id": "2",
+                            "grade_3": [
+                                {
+                                    "id": "1",
+                                    "grade_3_name": "其林分部",
+                                    "grade_2_id": "7"
+                                },
+                                {
+                                    "id": "2",
+                                    "grade_3_name": "南京机场分部",
+                                    "grade_2_id": "7",
+                                    "grade_3_detail": [
+                                        {
+                                            "grade_3_name": "南京机场分部",
+                                            "net_id": "120045",
+                                            "linkman": "张三",
+                                            "tel": "12312312",
+                                            "range": "全境",
+                                            "inrange": "无"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "3",
+                                    "grade_3_name": "南京栖霞一部",
+                                    "grade_2_id": "7"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "3",
+                    "grade_1_name": "浙江"
+                }
+            ]
+        }
+    ]
+}

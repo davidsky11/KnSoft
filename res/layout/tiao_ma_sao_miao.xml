@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/budgets"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@id/button_shouJian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.收件" />
+
+        <Button
+            android:id="@id/button_faJian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.发件" />
+
+        <Button
+            android:id="@id/button_daoJian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.到件" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@id/button_paiJian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.派件" />
+
+        <Button
+            android:id="@id/button_qianShou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.签收" />
+
+        <Button
+            android:id="@id/button_wenTiJian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6.问题件" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@id/button_liuCangJian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7.留仓件" />
+
+        <Button
+            android:id="@id/button_back_tmsm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.返回主界面" />
+    </TableRow>
+
+</TableLayout>

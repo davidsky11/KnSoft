@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="main_bg" type="drawable">#eee7f5ff</item>
+    <item name="details_bg" type="drawable">#ffb8860b</item>
+    <item name="settings_bg" type="drawable">#ff1e90ff</item>
+    <item name="excels_bg" type="drawable">#fffa8072</item>
+    <item name="datas_bg" type="drawable">#ffdc143c</item>
+    <item name="budgets_bg" type="drawable">#ff00ff7f</item>
+
+</resources>

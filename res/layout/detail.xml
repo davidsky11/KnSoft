@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_bg"
+    android:gravity="left"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/edit_wang_dian_ming_cheng"
+            android:layout_alignBottom="@id/edit_wang_dian_ming_cheng"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="网点名称：" />
+
+        <EditText
+            android:id="@id/edit_wang_dian_ming_cheng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:inputType="none" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/edit_wang_dian_id"
+            android:layout_alignBottom="@id/edit_wang_dian_id"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="网点编号：" />
+
+        <EditText
+            android:id="@id/edit_wang_dian_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:inputType="none" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/edit_fu_ze_ren"
+            android:layout_alignBottom="@id/edit_fu_ze_ren"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="负责人：" />
+
+        <EditText
+            android:id="@id/edit_fu_ze_ren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:inputType="none" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/edit_telephone"
+            android:layout_alignBottom="@id/edit_telephone"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:text="联系电话：" />
+
+        <EditText
+            android:id="@id/edit_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:inputType="phone" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="派送范围：" />
+
+    <EditText
+        android:id="@id/edit_pai_song_fan_wei"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="不派送范围：" />
+
+    <EditText
+        android:id="@id/edit_bu_pai_song_fan_wei"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@id/button_shangYiCeng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="上一层" />
+
+        <Button
+            android:id="@id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="返回" />
+    </RelativeLayout>
+
+</LinearLayout>

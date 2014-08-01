@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/budgets"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@id/button_danBi_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.单笔删除" />
+
+        <Button
+            android:id="@id/button_quanBu_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.全部删除" />
+
+        <Button
+            android:id="@id/button_back_scsj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.返回主界面" />
+    </TableRow>
+
+</TableLayout>
