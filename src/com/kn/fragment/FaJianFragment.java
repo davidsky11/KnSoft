@@ -111,7 +111,7 @@ public class FaJianFragment extends Fragment implements View.OnClickListener {
 		this.spinnerAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_banCi.setAdapter(this.spinnerAdapter);
-		this.spinner_banCi.setVisibility(View.ACCESSIBILITY_LIVE_REGION_NONE);
+		this.spinner_banCi.setVisibility(0);
 		ListViewUtils.listViewYiSaoMiao(this, this.listView_yiSaoMiao);
 		this.button_commit.setOnClickListener(this);
 		this.button_back.setOnClickListener(this);
