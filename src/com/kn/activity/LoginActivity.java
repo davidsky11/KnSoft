@@ -127,9 +127,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		this.button_loginoff = ((Button) findViewById(R.id.button_loginoff));
 		this.button_loginon.setOnClickListener(this);
 		this.button_loginoff.setOnClickListener(this);
-		this.checkAppProgress = ProgressDialog.show(this, "正在检测更新...", null,
-				true, false);
-		new Thread(new CheckAppRunnable()).start();
+//		this.checkAppProgress = ProgressDialog.show(this, "正在检测更新...", null,
+//				true, false);
+//		new Thread(new CheckAppRunnable()).start();
 	}
 
 	private class CheckAppRunnable implements Runnable {

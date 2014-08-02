@@ -17,8 +17,8 @@ import org.ksoap2.serialization.SoapObject;
 
 public final class UpdateAppUtils extends BaseClient {
 
-	private static final String APK_FILE_NAME = "WsBox.apk";
-	private static final String APK_URL = "http://10.0.2.2:8080/SeuicService/apk/WsBox.apk";
+	private static final String APK_FILE_NAME = "KnSoft.apk";
+	private static final String APK_URL = "http://10.0.2.2:8080/KnService/apk/KnSoft.apk";
 	private static final String METHOD_NAME = "getAndroidVersion";
 	private static final String PACKAGE_NAME = "com.kn";
 	private static final String SERVICE_NAME = "android";

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public final class SharedPreferencesManager {
 	
-	private static String SHARED_PREFERENCES_NAME = "WsBox";
+	private static String SHARED_PREFERENCES_NAME = "KnSoft";
 	private static SharedPreferences sharedPreferences = null;
 
 	public static String getUser(Context context) {

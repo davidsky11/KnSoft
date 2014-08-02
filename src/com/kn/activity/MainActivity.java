@@ -3,14 +3,19 @@ package com.kn.activity;
 import com.kn.R;
 import com.kn.fragment.BaseFragment;
 import com.kn.fragment.ChaKanPeiZhiFragment;
+import com.kn.fragment.DanBiDeleteFragment;
 import com.kn.fragment.DaoJianFragment;
 import com.kn.fragment.FaJianFragment;
+import com.kn.fragment.Grade_1Fragment;
 import com.kn.fragment.LiuCangJianFragment;
 import com.kn.fragment.PaiJianFragment;
 import com.kn.fragment.QianShouFragment;
+import com.kn.fragment.QuanBuDeleteFragment;
 import com.kn.fragment.ShouJianFragment;
 import com.kn.fragment.WenTiJianFragment;
+import com.kn.fragment.YunDanZhuiZongFragment;
 import com.kn.utils.FragmentUtils;
+import com.kn.utils.UpdateAppUtils;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,6 +23,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +40,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -87,6 +95,30 @@ public class MainActivity extends FragmentActivity {
 	private TabHost tabHost;
 	private TabWidget tabs;
 
+	private Handler mainHandler = new Handler() {
+		public void handleMessage(Message message) {
+			super.handleMessage(message);
+			switch (message.what) {
+			default:
+				return;
+			case CHECK_APP_FLAG_TRUE:
+				new Thread(new MainActivity.DownAppRunable()).start();
+				return;
+			case CHECK_APP_FLAG_FALSE:
+				MainActivity.this.checkAppProgress.dismiss();
+				Toast.makeText(MainActivity.this, "您的应用已是最新，无需更新！", 0).show();
+				return;
+			case DOWN_APP_FLAG_SUCCESS:
+				MainActivity.this.checkAppProgress.dismiss();
+				new Thread(new MainActivity.InstallAppRunnable()).start();
+				return;
+			case DOWN_APP_FLAG_FALIURE:
+				MainActivity.this.checkAppProgress.dismiss();
+				Toast.makeText(MainActivity.this, "更新失败，请重新更新！", 0).show();
+			}
+		}
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -266,12 +298,17 @@ public class MainActivity extends FragmentActivity {
 				MainActivity.this.replaceFragment(R.id.tab_tiaoMaSaoMiao,
 						R.layout.excels);
 				return;
-				
 			case R.id.button_danBi_delete:
-				
+				Log.d(TAG, "单笔删除被点击");
+				MainActivity.this.fragment = new DanBiDeleteFragment();
+				MainActivity.this.popFragment(R.id.tab_shanChuShuJu,
+						MainActivity.this.fragment, "单笔删除");
 				return;
 			case R.id.button_quanBu_delete:
-				
+				Log.d(TAG, "全部删除被点击");
+				MainActivity.this.fragment = new QuanBuDeleteFragment();
+				MainActivity.this.popFragment(R.id.tab_shanChuShuJu,
+						MainActivity.this.fragment, "全部删除");
 				return;
 			case R.id.button_back_scsj:
 				Log.d(TAG, "返回被点击");
@@ -279,13 +316,23 @@ public class MainActivity extends FragmentActivity {
 						R.layout.details);
 				return;
 			case R.id.button_paiSongFanWei:
-				
+				Log.d(TAG, "派送范围被点击");
+				MainActivity.this.fragment = new Grade_1Fragment();
+				MainActivity.this.popFragment(R.id.tab_changYongGongJu,
+						MainActivity.this.fragment, "一级站点");
 				return;
 			case R.id.button_yunDanZhuiZong:
-				
+				Log.d(TAG, "运单追踪被点击");
+				MainActivity.this.fragment = new YunDanZhuiZongFragment();
+				MainActivity.this.popFragment(R.id.tab_changYongGongJu,
+						MainActivity.this.fragment, "运单追踪");
 				return;
 			case R.id.button_chengXuGengXin:
-				
+				Log.d(TAG, "程序更新被点击");
+				MainActivity.this.closePopupWindow();
+				MainActivity.this.checkAppProgress = ProgressDialog.show(
+						MainActivity.this, "正在检测更新...", null, true, false);
+				new Thread(new MainActivity.CheckAppRunnable()).start();
 				return;
 			case R.id.button_shiJianTongBu:
 				
@@ -327,6 +374,54 @@ public class MainActivity extends FragmentActivity {
 				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE); // 4099
 		this.fragmentTransaction.commit();
 		closePopupWindow();
+	}
+	
+	private class DownAppRunable implements Runnable {
+
+		private DownAppRunable() {
+
+		}
+
+		public void run() {
+			Message localMessage = Message.obtain();
+			if (UpdateAppUtils.downApp(MainActivity.this
+					.getApplicationContext()))
+				;
+			for (localMessage.what = DOWN_APP_FLAG_SUCCESS;; localMessage.what = DOWN_APP_FLAG_FALIURE) {
+				MainActivity.this.mainHandler.sendMessage(localMessage);
+				return;
+			}
+		}
+	}
+
+	private class InstallAppRunnable implements Runnable {
+
+		private InstallAppRunnable() {
+
+		}
+
+		public void run() {
+			UpdateAppUtils
+					.installApp(MainActivity.this.getApplicationContext());
+		}
+	}
+
+	
+	private class CheckAppRunnable implements Runnable {
+
+		private CheckAppRunnable() {
+
+		}
+
+		public void run() {
+			Message localMessage = Message.obtain();
+			if (UpdateAppUtils.checkAppCode(MainActivity.this))
+				;
+			for (localMessage.what = CHECK_APP_FLAG_TRUE;; localMessage.what = CHECK_APP_FLAG_FALSE) {
+				MainActivity.this.mainHandler.sendMessage(localMessage);
+				return;
+			}
+		}
 	}
 
 	private class OnTabViewClickListenerImpl implements View.OnClickListener {
