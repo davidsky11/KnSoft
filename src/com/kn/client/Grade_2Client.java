@@ -19,12 +19,12 @@ public class Grade_2Client extends BaseClient {
 			SoapObject localSoapObject1 = getSoapObject(localHashMap,
 					"grade_2", "findEntityListByForeignKey");
 			if (localSoapObject1 == null) {
-				Log.e("Grade_2Client", "soapObject为空");
+				Log.e(TAG, "soapObject为空");
 				return null;
 			}
 			SoapObject localSoapObject2 = (SoapObject) localSoapObject1
 					.getProperty(0);
-			Log.e("Grade_2Client", "*" + localSoapObject2.getPropertyCount());
+			Log.e(TAG, "*" + localSoapObject2.getPropertyCount());
 			for (int i = 0; i < localSoapObject2.getPropertyCount(); i++) {
 				SoapObject localSoapObject3 = (SoapObject) localSoapObject2
 						.getProperty(i);
@@ -35,7 +35,7 @@ public class Grade_2Client extends BaseClient {
 						.getPropertyAsString("grade_2_name"));
 				localGrade_2.setGrade_1_id(paramInt);
 				localArrayList.add(localGrade_2);
-				Log.e("Grade_2Client", "*:" + localGrade_2);
+				Log.e(TAG, "*:" + localGrade_2);
 			}
 		} catch (Exception localException) {
 			localException.printStackTrace();
@@ -43,8 +43,3 @@ public class Grade_2Client extends BaseClient {
 		return localArrayList;
 	}
 }
-
-/*
- * Location: C:\Users\davidsky\Desktop\AUTOID7\AutoidPDA_22336439500900.jar
- * Qualified Name: com.seuic.client.Grade_2Client JD-Core Version: 0.6.0
- */

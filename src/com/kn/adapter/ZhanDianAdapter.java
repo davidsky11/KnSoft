@@ -10,9 +10,9 @@ public abstract class ZhanDianAdapter<T> extends BaseAdapter {
 	private static final String TAG = "站点Adapter";
 	private List<T> zhanDianList;
 
-	public ZhanDianAdapter(List<T> paramList) {
-		Log.d("站点Adapter", getClass().getName());
-		this.zhanDianList = paramList;
+	public ZhanDianAdapter(List<T> list) {
+		Log.d(TAG, getClass().getName());
+		this.zhanDianList = list;
 	}
 
 	public int getCount() {

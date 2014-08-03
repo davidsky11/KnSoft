@@ -16,7 +16,7 @@ public class Grade_2Adapter extends ZhanDianAdapter<Grade_2> {
 	public Grade_2Adapter(Fragment paramFragment, List<Grade_2> paramList) {
 		super(paramList);
 		this.fragment = paramFragment;
-		Log.d("二级站点Adapter", getClass().getName());
+		Log.d(TAG, getClass().getName());
 	}
 
 	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
@@ -28,8 +28,3 @@ public class Grade_2Adapter extends ZhanDianAdapter<Grade_2> {
 		return paramView;
 	}
 }
-
-/*
- * Location: C:\Users\davidsky\Desktop\AUTOID7\AutoidPDA_22336439500900.jar
- * Qualified Name: com.seuic.adapter.Grade_2Adapter JD-Core Version: 0.6.0
- */

@@ -11,17 +11,17 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 public class BaseClient {
-	private static final String BASE_LOCATION = "http://192.168.40.153:8080/SeuicService/services/";
+	private static final String BASE_LOCATION = "http://10.0.2.2:8080/KnService/services/";
 	private static final String TAG = "BaseClient";
-	private static final String TARGET_NAMESPACE = "http://service.whl.seuic.com/";
+	private static final String TARGET_NAMESPACE = "http://service.whl.kn.com/";
 
 	public static SoapObject getSoapObject(
 			HashMap<String, Object> paramHashMap, String paramString1,
 			String paramString2) throws Exception {
 		SoapSerializationEnvelope localSoapSerializationEnvelope = new SoapSerializationEnvelope(
 				110);
-		SoapObject localSoapObject = new SoapObject(
-				"http://service.whl.seuic.com/", paramString2);
+		SoapObject localSoapObject = new SoapObject(TARGET_NAMESPACE,
+				paramString2);
 		Iterator localIterator = null;
 		if (paramHashMap != null)
 			localIterator = paramHashMap.entrySet().iterator();
@@ -29,11 +29,10 @@ public class BaseClient {
 			if (!localIterator.hasNext()) {
 				localSoapSerializationEnvelope.bodyOut = localSoapObject;
 				HttpTransportSE localHttpTransportSE = new HttpTransportSE(
-						"http://192.168.40.153:8080/SeuicService/services/"
-								+ paramString1);
+						BASE_LOCATION + paramString1);
 				localHttpTransportSE.debug = true;
-				localHttpTransportSE.call("http://service.whl.seuic.com/"
-						+ paramString2, localSoapSerializationEnvelope);
+				localHttpTransportSE.call(TARGET_NAMESPACE + paramString2,
+						localSoapSerializationEnvelope);
 				if (localSoapSerializationEnvelope.getResponse() == null)
 					break;
 				return (SoapObject) localSoapSerializationEnvelope.bodyIn;
@@ -41,8 +40,8 @@ public class BaseClient {
 			Map.Entry localEntry = (Map.Entry) localIterator.next();
 			String str = (String) localEntry.getKey();
 			Object localObject = localEntry.getValue();
-			Log.d("BaseClient", "paramName=" + str);
-			Log.d("BaseClient", "paramValue=" + localObject.toString());
+			Log.d(TAG, "paramName=" + str);
+			Log.d(TAG, "paramValue=" + localObject.toString());
 			localSoapObject.addProperty(str, localObject);
 		}
 		return null;

@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.kn.R;
 import com.kn.adapter.Grade_3Adapter;
 import com.kn.client.Grade_3Client;
 import com.kn.entity.Grade_3;
@@ -29,7 +31,7 @@ public class Grade_3Fragment extends Fragment implements View.OnClickListener {
 	private View currentView;
 	private int grade_2_id;
 	private List<Grade_3> grade_3List = null;
-	private int layoutId = 2130903053;
+	private int layoutId = R.layout.grade_3;
 	private ListView listView_grade_3 = null;
 	private Handler loadDataHandler = new Handler() {
 		public void handleMessage(Message paramMessage) {
@@ -49,49 +51,48 @@ public class Grade_3Fragment extends Fragment implements View.OnClickListener {
 	private ProgressDialog loadDataProgress = null;
 
 	public Grade_3Fragment() {
-		Log.d("二级站点Fragment", "空构造方法");
+		Log.d(TAG, "空构造方法");
 	}
 
-	// public Grade_3Fragment(int paramInt)
-	// {
-	// Log.d("二级站点Fragment", "带参造方法");
-	// this.grade_2_id = paramInt;
-	// }
+	public Grade_3Fragment(int layoutId) {
+		Log.d(TAG, "带参造方法");
+		this.grade_2_id = layoutId;
+	}
 
 	public void onActivityCreated(Bundle paramBundle) {
 		super.onActivityCreated(paramBundle);
-		Log.d("二级站点Fragment", "onActivityCreated方法");
-		// new Thread(new LoadDataRunnable(this.grade_2_id)).start();
+		Log.d(TAG, "onActivityCreated方法");
+		new Thread(new LoadDataRunnable(this.grade_2_id)).start();
 	}
 
 	public void onAttach(Activity paramActivity) {
 		super.onAttach(paramActivity);
-		Log.d("二级站点Fragment", "onAttach方法");
+		Log.d(TAG, "onAttach方法");
 		this.loadDataProgress = ProgressDialog.show(paramActivity, "正在加载数据...",
 				null, true, false);
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		default:
 			return;
 		case 2131099693:
-			Log.d("二级站点Fragment", "button_shangYiCeng");
+			Log.d(TAG, "button_shangYiCeng");
 			FragmentUtils.popBackStack(getFragmentManager());
 			return;
 		case 2131099681:
+			FragmentUtils.popBackStack(getFragmentManager(), "一级站点");
 		}
-		FragmentUtils.popBackStack(getFragmentManager(), "一级站点");
 	}
 
 	public void onCreate(Bundle paramBundle) {
 		super.onCreate(paramBundle);
-		Log.d("二级站点Fragment", "onCreate方法");
+		Log.d(TAG, "onCreate方法");
 	}
 
 	public View onCreateView(LayoutInflater paramLayoutInflater,
 			ViewGroup paramViewGroup, Bundle paramBundle) {
-		Log.d("二级站点Fragment", "onCreateView方法");
+		Log.d(TAG, "onCreateView方法");
 		this.currentView = paramLayoutInflater.inflate(this.layoutId,
 				paramViewGroup, false);
 		this.currentView.setFocusable(true);
@@ -100,24 +101,24 @@ public class Grade_3Fragment extends Fragment implements View.OnClickListener {
 
 	public void onViewCreated(View paramView, Bundle paramBundle) {
 		super.onViewCreated(paramView, paramBundle);
-		Log.d("二级站点Fragment", "onViewCreated方法");
-		this.button_shangYiCeng = ((Button) paramView.findViewById(2131099693));
+		Log.d(TAG, "onViewCreated方法");
+		this.button_shangYiCeng = ((Button) paramView
+				.findViewById(R.id.button_shangYiCeng));
 		this.button_shangYiCeng.setOnClickListener(this);
-		this.button_back = ((Button) paramView.findViewById(2131099681));
+		this.button_back = ((Button) paramView.findViewById(R.id.button_back));
 		this.button_back.setOnClickListener(this);
-		this.listView_grade_3 = ((ListView) paramView.findViewById(2131099701));
-		// this.listView_grade_3.setOnItemClickListener(new
-		// OnItemClickListenerImpl(null));
+		this.listView_grade_3 = ((ListView) paramView
+				.findViewById(R.id.listView_grade_3));
+		this.listView_grade_3
+				.setOnItemClickListener(new OnItemClickListenerImpl());
 	}
 
 	private class LoadDataRunnable implements Runnable {
 		private int key;
 
-		// public LoadDataRunnable(int arg2)
-		// {
-		// int i;
-		// this.key = i;
-		// }
+		public LoadDataRunnable(int key) {
+			this.key = key;
+		}
 
 		public void run() {
 			Message localMessage = Message.obtain();
@@ -136,14 +137,15 @@ public class Grade_3Fragment extends Fragment implements View.OnClickListener {
 
 		public void onItemClick(AdapterView<?> paramAdapterView,
 				View paramView, int paramInt, long paramLong) {
-			Log.d("二级站点Fragment", "parent:"
+			Log.d(TAG, "parent:"
 					+ paramAdapterView.getClass().getName() + ",view:"
 					+ paramView.getClass().getName() + ",position:" + paramInt
 					+ ",id:" + paramLong);
-			// DetailFragment localDetailFragment = new
-			// DetailFragment(((Grade_3)Grade_3Fragment.this.grade_3List.get(paramInt)).getId());
-			// FragmentUtils.popFragment(Grade_3Fragment.this.getFragmentManager(),
-			// 2131099717, localDetailFragment, "站点明细");
+			DetailFragment localDetailFragment = new DetailFragment(
+					((Grade_3) Grade_3Fragment.this.grade_3List.get(paramInt))
+							.getId());
+			FragmentUtils.popFragment(
+					Grade_3Fragment.this.getFragmentManager(), 2131099717, localDetailFragment, "站点明细");
 		}
 	}
 }

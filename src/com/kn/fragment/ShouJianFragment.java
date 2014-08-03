@@ -39,21 +39,18 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 		this.layoutId = paramInt;
 	}
 
-	public void onActivityResult(int paramInt1, int paramInt2,
-			Intent paramIntent) {
-		super.onActivityResult(paramInt1, paramInt2, paramIntent);
-		Log.e(TAG, "ShouJianFragment >>> onActivityResult");
-//		if (paramInt1 != 0)
-//			Log.e(TAG, "未找到调用者");
-//		do {
-//			// if (paramInt2 != -1)
-//			// continue;
-//			String str1 = paramIntent.getStringExtra("SCAN_RESULT");
-//			String str2 = paramIntent.getStringExtra("SCAN_RESULT_FORMAT");
-//			Log.e(TAG, "内容：" + str1 + ",格式：" + str2);
-//			return;
-//		} while (paramInt2 != 0);
-//		 Log.e("收件Fragment", "操作取消");
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode != 0) {
+			Log.e(TAG, "未找到调用者");
+			if (resultCode == 0) {
+				String str1 = data.getStringExtra("SCAN_RESULT");
+				String str2 = data.getStringExtra("SCAN_RESULT_FORMAT");
+				Log.e(TAG, "内容：" + str1 + ",格式：" + str2);
+				Log.e(TAG, "操作取消");
+			}
+			return;
+		}
 	}
 
 	public void onClick(View paramView) {

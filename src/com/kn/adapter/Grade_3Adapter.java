@@ -16,7 +16,7 @@ public class Grade_3Adapter extends ZhanDianAdapter<Grade_3> {
 	public Grade_3Adapter(Fragment paramFragment, List<Grade_3> paramList) {
 		super(paramList);
 		this.fragment = paramFragment;
-		Log.d("三级站点Adapter", getClass().getName());
+		Log.d(TAG, getClass().getName());
 	}
 
 	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
@@ -28,8 +28,3 @@ public class Grade_3Adapter extends ZhanDianAdapter<Grade_3> {
 		return paramView;
 	}
 }
-
-/*
- * Location: C:\Users\davidsky\Desktop\AUTOID7\AutoidPDA_22336439500900.jar
- * Qualified Name: com.seuic.adapter.Grade_3Adapter JD-Core Version: 0.6.0
- */

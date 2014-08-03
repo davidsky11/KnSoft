@@ -26,7 +26,7 @@ public class DanBiDeleteFragment extends Fragment implements
 	private Button button_back = null;
 	private Button button_saomiao = null;
 	private View currentView;
-	private int layoutId = 2130903043;
+	private int layoutId = R.layout.dan_bi_delete;
 	private ListView listView_yiSaoMiao = null;
 	private ArrayAdapter<String> spinnerAdapter = null;
 	private Spinner spinner_caoZuo_type = null;
@@ -34,62 +34,61 @@ public class DanBiDeleteFragment extends Fragment implements
 	public DanBiDeleteFragment() {
 	}
 
-/*	public DanBiDeleteFragment(int paramInt) {
-		this.layoutId = paramInt;
-	}*/
+	public DanBiDeleteFragment(int layoutId) {
+		this.layoutId = layoutId;
+	}
 
-	public void onActivityResult(int paramInt1, int paramInt2,
-			Intent paramIntent) {
-		super.onActivityResult(paramInt1, paramInt2, paramIntent);
-		if (paramInt1 != 0)
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode != 0) {
 			Log.e(TAG, "未找到调用者");
-		/*do {
+			if (resultCode == 0) {
+				String str1 = data.getStringExtra("SCAN_RESULT");
+				String str2 = data.getStringExtra("SCAN_RESULT_FORMAT");
+				Log.e(TAG, "内容：" + str1 + ",格式：" + str2);
+				Log.e(TAG, "操作取消");
+			}
 			return;
-			if (paramInt2 != -1)
-				continue;
-			String str1 = paramIntent.getStringExtra("SCAN_RESULT");
-			String str2 = paramIntent.getStringExtra("SCAN_RESULT_FORMAT");
-			Log.e("单笔删除Fragment", "内容：" + str1 + ",格式：" + str2);
-			return;
-		} while (paramInt2 != 0);
-		Log.e("单笔删除Fragment", "操作取消");*/
-	}
-
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
-			case R.id.button_back:
-				return;
-			case R.id.button_commit:
-			default:
-				return;
-			case R.id.button_saomiao:
 		}
-		SaoMiaoUtils.startSaoMiao(this);
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.button_back:
+			return;
+		case R.id.button_commit:
+		default:
+			return;
+		case R.id.button_saomiao:
+			SaoMiaoUtils.startSaoMiao(this);
+			return;
+		}
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, viewGroup, false);
 		this.currentView.setFocusable(true);
 		this.spinner_caoZuo_type = ((Spinner) this.currentView
-				.findViewById(2131099678));
+				.findViewById(R.id.spinner_caoZuo_type));
 		this.listView_yiSaoMiao = ((ListView) this.currentView
-				.findViewById(2131099679));
-		this.button_back = ((Button) this.currentView.findViewById(2131099681));
+				.findViewById(R.id.listView_yiSaoMiao));
+		this.button_back = ((Button) this.currentView
+				.findViewById(R.id.button_back));
 		this.button_saomiao = ((Button) this.currentView
-				.findViewById(2131099680));
-		this.spinnerAdapter = new ArrayAdapter(getActivity(), 17367048,
-				SPINNER_DATA);
-		this.spinnerAdapter.setDropDownViewResource(17367049);
+				.findViewById(R.id.button_saomiao));
+		this.spinnerAdapter = new ArrayAdapter(getActivity(),
+				android.R.layout.simple_spinner_item, SPINNER_DATA);
+		this.spinnerAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_caoZuo_type.setAdapter(this.spinnerAdapter);
 		this.spinner_caoZuo_type.setVisibility(0);
-		/*this.spinner_caoZuo_type
-				.setOnItemSelectedListener(new OnItemSelectedListenerImpl(null));*/
+		this.spinner_caoZuo_type
+				.setOnItemSelectedListener(new OnItemSelectedListenerImpl());
 		this.button_saomiao.setOnClickListener(this);
 		this.button_back.setOnClickListener(this);
 		ListViewUtils.listViewYiSaoMiao(this, this.listView_yiSaoMiao);
@@ -101,18 +100,13 @@ public class DanBiDeleteFragment extends Fragment implements
 		private OnItemSelectedListenerImpl() {
 		}
 
-		public void onItemSelected(AdapterView<?> paramAdapterView,
-				View paramView, int paramInt, long paramLong) {
-			Log.d("单笔删除Fragment", ((Adapter) paramAdapterView.getAdapter())
-					.getItem(paramInt).toString());
+		public void onItemSelected(AdapterView<?> adapterView, View view,
+				int paramInt, long paramLong) {
+			Log.d(TAG, ((Adapter) adapterView.getAdapter()).getItem(paramInt)
+					.toString());
 		}
 
 		public void onNothingSelected(AdapterView<?> paramAdapterView) {
 		}
 	}
 }
-
-/*
- * Location: C:\Users\davidsky\Desktop\AUTOID7\AutoidPDA_22336439500900.jar
- * Qualified Name: com.seuic.fragment.DanBiDeleteFragment JD-Core Version: 0.6.0
- */
