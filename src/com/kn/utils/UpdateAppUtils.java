@@ -47,26 +47,22 @@ public final class UpdateAppUtils extends BaseClient {
 	public static boolean downApp(Context context) {
 		boolean flag = true;
 		try {
-			HttpURLConnection localHttpURLConnection = (HttpURLConnection) new URL(
+			HttpURLConnection conn = (HttpURLConnection) new URL(
 					APK_URL).openConnection();
-			localHttpURLConnection.connect();
-			InputStream localInputStream = localHttpURLConnection
+			conn.connect();
+			InputStream is = conn
 					.getInputStream();
-			FileOutputStream localFileOutputStream = context
+			FileOutputStream fos = context
 					.openFileOutput(APK_FILE_NAME, Context.MODE_WORLD_READABLE);
 			byte[] arrayOfByte = new byte[1024];
 			while (true) {
-				int j = localInputStream.read(arrayOfByte);
+				int j = is.read(arrayOfByte);
 				if (j == -1) {
-					localFileOutputStream.flush();
-					if (localInputStream != null)
-						localInputStream.close();
-					if (localFileOutputStream == null)
-						break;
-					localFileOutputStream.close();
-					return flag;
+					fos.flush();
+					is.close();
+					return true;
 				}
-				localFileOutputStream.write(arrayOfByte, 0, j);
+				fos.write(arrayOfByte, 0, j);
 			}
 		} catch (Exception localException) {
 			localException.printStackTrace();
@@ -76,23 +72,23 @@ public final class UpdateAppUtils extends BaseClient {
 	}
 
 	public static void installApp(Context context) {
-		Intent localIntent = new Intent();
-		localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 268435456
-		localIntent.setAction(Intent.ACTION_DEFAULT);
-		localIntent.setDataAndType(
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(Intent.ACTION_DEFAULT);
+		intent.setDataAndType(
 				Uri.fromFile(new File(context.getFilesDir().getPath()
 						+ File.separator + APK_FILE_NAME)), TYPE);
-		context.startActivity(localIntent);
+		context.startActivity(intent);
 	}
 
 	public static int serviceAppCode() {
 		try {
-			SoapObject localSoapObject = getSoapObject(null, SERVICE_NAME,
+			SoapObject request = getSoapObject(null, SERVICE_NAME,
 					METHOD_NAME);
-			if (localSoapObject == null)
+			if (request == null)
 				return -1;
-			Log.e(TAG, "serviceAppCode " + localSoapObject.getProperty(0));
-			int i = Integer.parseInt(((SoapObject) localSoapObject
+			Log.e(TAG, "serviceAppCode " + request.getProperty(0));
+			int i = Integer.parseInt(((SoapObject) request
 					.getProperty(0)).getProperty("versionCode").toString());
 			return i;
 		} catch (Exception localException) {

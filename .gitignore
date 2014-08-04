@@ -1,9 +1,9 @@
 /gen
 /bin
-/project.properties
-/.gitignore
-/.classpath
-/.settings
-/.git
-/.project
-/lint.xml
+project.properties
+.gitignore
+.classpath
+.settings
+.git
+.project
+lint.xml
