@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.kn.R;
 import com.kn.entity.FailData;
 import java.util.List;
 
@@ -13,9 +15,9 @@ public class ShangChuanFailAdapter extends BaseAdapter {
 	private Context context = null;
 	private List<FailData> failList = null;
 
-	public ShangChuanFailAdapter(Context paramContext, List<FailData> paramList) {
-		this.context = paramContext;
-		this.failList = paramList;
+	public ShangChuanFailAdapter(Context context, List<FailData> list) {
+		this.context = context;
+		this.failList = list;
 	}
 
 	public int getCount() {
@@ -30,23 +32,17 @@ public class ShangChuanFailAdapter extends BaseAdapter {
 		return paramInt;
 	}
 
-	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
+	public View getView(int paramInt, View view, ViewGroup viewGroup) {
 		FailData localFailData = (FailData) getItem(paramInt);
-		if (paramView == null)
-			paramView = LayoutInflater.from(this.context).inflate(2130903064,
+		if (view == null)
+			view = LayoutInflater.from(this.context).inflate(R.layout.shang_chuan_fail_item,
 					null);
-		TextView localTextView1 = (TextView) paramView.findViewById(2131099731);
-		TextView localTextView2 = (TextView) paramView.findViewById(2131099732);
-		TextView localTextView3 = (TextView) paramView.findViewById(2131099733);
+		TextView localTextView1 = (TextView) view.findViewById(R.id.text_id);
+		TextView localTextView2 = (TextView) view.findViewById(R.id.text_danJuHao);
+		TextView localTextView3 = (TextView) view.findViewById(R.id.text_saoMiaoLeiXing);
 		localTextView1.setText(String.valueOf(localFailData.getId()));
 		localTextView2.setText(localFailData.getDanJuHao());
 		localTextView3.setText(localFailData.getSaoMiaoLeiXing());
-		return paramView;
+		return view;
 	}
 }
-
-/*
- * Location: C:\Users\davidsky\Desktop\AUTOID7\AutoidPDA_22336439500900.jar
- * Qualified Name: com.seuic.adapter.ShangChuanFailAdapter JD-Core Version:
- * 0.6.0
- */

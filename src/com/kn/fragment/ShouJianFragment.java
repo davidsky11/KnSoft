@@ -17,7 +17,6 @@ import com.kn.R;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
-@SuppressLint("ValidFragment")
 public class ShouJianFragment extends Fragment implements View.OnClickListener {
 	
 	private static final String TAG = "收件Fragment";
@@ -35,8 +34,8 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 	public ShouJianFragment() {
 	}
 
-	public ShouJianFragment(int paramInt) {
-		this.layoutId = paramInt;
+	public ShouJianFragment(int layoutId) {
+		this.layoutId = layoutId;
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

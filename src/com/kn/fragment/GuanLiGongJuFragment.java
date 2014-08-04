@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-@SuppressLint("ValidFragment")
 public class GuanLiGongJuFragment extends Fragment {
 	
 	private int layoutId = R.layout.datas;

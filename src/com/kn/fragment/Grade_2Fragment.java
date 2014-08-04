@@ -76,11 +76,11 @@ public class Grade_2Fragment extends Fragment implements View.OnClickListener {
 		switch (paramView.getId()) {
 		default:
 			return;
-		case 2131099693:
+		case R.id.button_shangYiCeng:
 			Log.d(TAG, "button_shangYiCeng");
 			FragmentUtils.popBackStack(getFragmentManager());
 			return;
-		case 2131099681:
+		case R.id.button_back:
 			FragmentUtils.popBackStack(getFragmentManager(), "一级站点");
 		}
 	}
@@ -144,7 +144,7 @@ public class Grade_2Fragment extends Fragment implements View.OnClickListener {
 					((Grade_2) Grade_2Fragment.this.grade_2List.get(paramInt))
 							.getId());
 			FragmentUtils.popFragment(
-					Grade_2Fragment.this.getFragmentManager(), 2131099717,
+					Grade_2Fragment.this.getFragmentManager(), R.id.tab_changYongGongJu,
 					localGrade_3Fragment, "三级站点");
 		}
 	}

@@ -24,7 +24,6 @@ import com.kn.utils.NetworkUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressLint("ValidFragment")
 public class ShuJuShangChuanFragment extends Fragment implements
 		View.OnClickListener {
 

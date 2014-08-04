@@ -73,8 +73,9 @@ public class Grade_1Fragment extends Fragment implements View.OnClickListener {
 		switch (view.getId()) {
 		default:
 			return;
-		case 2131099681:
+		case R.id.button_back:
 			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		}
 	}
 
@@ -122,14 +123,14 @@ public class Grade_1Fragment extends Fragment implements View.OnClickListener {
 		Log.d(TAG, "onStop方法");
 	}
 
-	public void onViewCreated(View paramView, Bundle paramBundle) {
-		super.onViewCreated(paramView, paramBundle);
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		Log.d(TAG, "onViewCreated方法");
-		this.listView_grade_1 = ((ListView) paramView
+		this.listView_grade_1 = ((ListView) view
 				.findViewById(R.id.listView_grade_1));
 		this.listView_grade_1
 				.setOnItemClickListener(new OnItemClickListenerImpl());
-		this.button_back = ((Button) paramView.findViewById(R.id.button_back));
+		this.button_back = ((Button) view.findViewById(R.id.button_back));
 		this.button_back.setOnClickListener(this);
 	}
 
@@ -153,15 +154,15 @@ public class Grade_1Fragment extends Fragment implements View.OnClickListener {
 		}
 
 		public void onItemClick(AdapterView<?> adapterView,
-				View paramView, int paramInt, long paramLong) {
+				View view, int paramInt, long paramLong) {
 			Log.d(TAG, "parent:" + adapterView.getClass().getName()
-					+ ",view:" + paramView.getClass().getName() + ",position:"
+					+ ",view:" + view.getClass().getName() + ",position:"
 					+ paramInt + ",id:" + paramLong);
 			Grade_2Fragment localGrade_2Fragment = new Grade_2Fragment(
 					((Grade_1) Grade_1Fragment.this.grade_1List.get(paramInt))
 							.getId());
 			FragmentUtils.popFragment(
-					Grade_1Fragment.this.getFragmentManager(), 2131099717,
+					Grade_1Fragment.this.getFragmentManager(), R.id.tab_changYongGongJu,
 					localGrade_2Fragment, "二级站点");
 		}
 	}

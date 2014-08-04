@@ -1,19 +1,20 @@
 package com.kn.utils;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
-import android.util.Log;
-import com.kn.client.BaseClient;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import org.ksoap2.serialization.SoapObject;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.util.Log;
+
+import com.kn.client.BaseClient;
 
 public final class UpdateAppUtils extends BaseClient {
 

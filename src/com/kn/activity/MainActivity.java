@@ -12,6 +12,7 @@ import com.kn.fragment.PaiJianFragment;
 import com.kn.fragment.QianShouFragment;
 import com.kn.fragment.QuanBuDeleteFragment;
 import com.kn.fragment.ShouJianFragment;
+import com.kn.fragment.WangLuoCeShiFragment;
 import com.kn.fragment.WenTiJianFragment;
 import com.kn.fragment.YunDanZhuiZongFragment;
 import com.kn.utils.FragmentUtils;
@@ -19,6 +20,7 @@ import com.kn.utils.UpdateAppUtils;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -335,13 +337,42 @@ public class MainActivity extends FragmentActivity {
 				new Thread(new MainActivity.CheckAppRunnable()).start();
 				return;
 			case R.id.button_shiJianTongBu:
-				
+				Log.d(TAG, "事件同步被点击");
 				return;
 			case R.id.button_gengXinShuJu:
-				
+				Log.d(TAG, "更新数据被点击");
+				MainActivity.this.gengXinShuJuDialog = new AlertDialog.Builder(
+						MainActivity.this, 3);
+				MainActivity.this.gengXinShuJuDialog
+						.setSingleChoiceItems(
+								MainActivity.ITEMS_GENG_XIN_SHU_JU, 0,
+								new DialogInterface.OnClickListener() {
+									public void onClick(
+											DialogInterface paramDialogInterface,
+											int paramInt) {
+										switch (paramInt) {
+										default:
+											return;
+										case 0:
+											Log.d(TAG, "which:" + paramInt);
+											paramDialogInterface.dismiss();
+											return;
+										case 1:
+											Log.d(TAG, "which:" + paramInt);
+											paramDialogInterface.dismiss();
+											return;
+										case 2:
+										}
+										Log.d(TAG, "which:" + paramInt);
+										paramDialogInterface.dismiss();
+									}
+								}).create().show();
 				return;
 			case R.id.button_wangLuoCeShi:
-				
+				Log.d(TAG, "网络测试被点击");
+				MainActivity.this.fragment = new WangLuoCeShiFragment();
+				MainActivity.this.popFragment(R.id.tab_changYongGongJu,
+						MainActivity.this.fragment, "网络测试");
 				return;
 			case R.id.button_back_cygj:
 				Log.d(TAG, "返回被点击");
@@ -359,6 +390,8 @@ public class MainActivity extends FragmentActivity {
 				return;
 			case R.id.button_back_glgj:
 				Log.d(TAG, "返回被点击");
+				MainActivity.this.replaceFragment(R.id.tab_changYongGongJu,
+						R.layout.datas);
 				return;
 
 			}

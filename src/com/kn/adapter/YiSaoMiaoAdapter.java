@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.kn.R;
 import com.kn.entity.ShouJian;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +41,13 @@ public class YiSaoMiaoAdapter extends BaseAdapter {
 		return paramInt;
 	}
 
-	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
+	public View getView(int paramInt, View view, ViewGroup viewGroup) {
 		ShouJian localShouJian = (ShouJian) getItem(paramInt);
-		if (paramView == null)
-			paramView = LayoutInflater.from(this.context).inflate(2130903071,
+		if (view == null)
+			view = LayoutInflater.from(this.context).inflate(R.layout.yi_sao_miao_item,
 					null);
-		((TextView) paramView.findViewById(2131099754)).setText(localShouJian
+		((TextView) view.findViewById(R.id.text_title)).setText(localShouJian
 				.getTiaoma());
-		return paramView;
+		return view;
 	}
 }

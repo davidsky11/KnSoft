@@ -35,8 +35,8 @@ public class QuanBuDeleteFragment extends Fragment implements
 
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case 2131099726:
-		case 2131099727:
+		case R.id.button_delete:
+		case R.id.button_fanHuiZhuJieMian:
 		}
 	}
 

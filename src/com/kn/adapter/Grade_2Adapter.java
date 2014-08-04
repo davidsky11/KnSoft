@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.kn.R;
 import com.kn.entity.Grade_2;
 import java.util.List;
 
@@ -22,8 +24,8 @@ public class Grade_2Adapter extends ZhanDianAdapter<Grade_2> {
 	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
 		if (paramView == null)
 			paramView = LayoutInflater.from(this.fragment.getActivity())
-					.inflate(2130903074, null);
-		((TextView) paramView.findViewById(2131099754))
+					.inflate(R.layout.zhan_dian_item, null);
+		((TextView) paramView.findViewById(R.id.text_title))
 				.setText(((Grade_2) getItem(paramInt)).getGrade_2_name());
 		return paramView;
 	}
