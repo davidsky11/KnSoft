@@ -3,7 +3,9 @@ package com.kn.entity;
 import java.io.Serializable;
 
 public class Detail implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
+	
 	private String bu_pai_song_fan_wei;
 	private String detail_name;
 	private String detail_number;
@@ -13,76 +15,68 @@ public class Detail implements Serializable {
 	private String pai_song_fan_wei;
 	private String telephone;
 
-	public boolean equals(Object paramObject) {
-		return false;
+	public String getBu_pai_song_fan_wei() {
+		return bu_pai_song_fan_wei;
 	}
 
-	public String getBu_pai_song_fan_wei() {
-		return this.bu_pai_song_fan_wei;
+	public void setBu_pai_song_fan_wei(String bu_pai_song_fan_wei) {
+		this.bu_pai_song_fan_wei = bu_pai_song_fan_wei;
 	}
 
 	public String getDetail_name() {
-		return this.detail_name;
+		return detail_name;
+	}
+
+	public void setDetail_name(String detail_name) {
+		this.detail_name = detail_name;
 	}
 
 	public String getDetail_number() {
-		return this.detail_number;
+		return detail_number;
+	}
+
+	public void setDetail_number(String detail_number) {
+		this.detail_number = detail_number;
 	}
 
 	public String getFu_ze_ren() {
-		return this.fu_ze_ren;
+		return fu_ze_ren;
+	}
+
+	public void setFu_ze_ren(String fu_ze_ren) {
+		this.fu_ze_ren = fu_ze_ren;
 	}
 
 	public int getGrade_3_id() {
-		return this.grade_3_id;
+		return grade_3_id;
+	}
+
+	public void setGrade_3_id(int grade_3_id) {
+		this.grade_3_id = grade_3_id;
 	}
 
 	public int getId() {
-		return this.id;
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getPai_song_fan_wei() {
-		return this.pai_song_fan_wei;
+		return pai_song_fan_wei;
+	}
+
+	public void setPai_song_fan_wei(String pai_song_fan_wei) {
+		this.pai_song_fan_wei = pai_song_fan_wei;
 	}
 
 	public String getTelephone() {
-		return this.telephone;
+		return telephone;
 	}
 
-	public int hashCode() {
-		return 0;
-	}
-
-	public void setBu_pai_song_fan_wei(String paramString) {
-		this.bu_pai_song_fan_wei = paramString;
-	}
-
-	public void setDetail_name(String paramString) {
-		this.detail_name = paramString;
-	}
-
-	public void setDetail_number(String paramString) {
-		this.detail_number = paramString;
-	}
-
-	public void setFu_ze_ren(String paramString) {
-		this.fu_ze_ren = paramString;
-	}
-
-	public void setGrade_3_id(int paramInt) {
-		this.grade_3_id = paramInt;
-	}
-
-	public void setId(int paramInt) {
-		this.id = paramInt;
-	}
-
-	public void setPai_song_fan_wei(String paramString) {
-		this.pai_song_fan_wei = paramString;
-	}
-
-	public void setTelephone(String paramString) {
-		this.telephone = paramString;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 	public String toString() {
@@ -94,8 +88,3 @@ public class Detail implements Serializable {
 				+ this.bu_pai_song_fan_wei + "]";
 	}
 }
-
-/*
- * Location: C:\Users\davidsky\Desktop\AUTOID7\AutoidPDA_22336439500900.jar
- * Qualified Name: com.seuic.entity.Detail JD-Core Version: 0.6.0
- */

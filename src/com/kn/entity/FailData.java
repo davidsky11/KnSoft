@@ -22,16 +22,16 @@ public class FailData implements Serializable {
 		return this.saoMiaoLeiXing;
 	}
 
-	public void setDanJuHao(String paramString) {
-		this.danJuHao = paramString;
+	public void setDanJuHao(String danJuHao) {
+		this.danJuHao = danJuHao;
 	}
 
-	public void setId(int paramInt) {
-		this.id = paramInt;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setSaoMiaoLeiXing(String paramString) {
-		this.saoMiaoLeiXing = paramString;
+	public void setSaoMiaoLeiXing(String saoMiaoLeiXing) {
+		this.saoMiaoLeiXing = saoMiaoLeiXing;
 	}
 
 	public String toString() {

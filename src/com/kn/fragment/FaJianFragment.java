@@ -1,6 +1,5 @@
 package com.kn.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,17 +20,18 @@ import com.kn.R;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
-@SuppressLint("ValidFragment")
 public class FaJianFragment extends Fragment implements View.OnClickListener {
 
-	private static final String[] SPINNER_DATA = { "111", "119", "120", "110" };
 	private static final String TAG = "发件Fragment";
+	
+	private int layoutId = R.layout.fa_jian;
+	private static final String[] SPINNER_DATA = { "111", "119", "120", "110" };
+	
 	private EditText baoZhuangDai_id = null;
 	private Button button_back = null;
 	private Button button_commit = null;
 	private Button button_saomiao = null;
 	private View currentView;
-	private int layoutId = R.layout.fa_jian;
 	private ListView listView_yiSaoMiao = null;
 	private ArrayAdapter<String> spinnerAdapter = null;
 	private Spinner spinner_banCi = null;
@@ -43,8 +42,8 @@ public class FaJianFragment extends Fragment implements View.OnClickListener {
 	public FaJianFragment() {
 	}
 
-	public FaJianFragment(int paramInt) {
-		this.layoutId = paramInt;
+	public FaJianFragment(int layoutId) {
+		this.layoutId = layoutId;
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -79,12 +78,12 @@ public class FaJianFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 
 	public View onCreateView(LayoutInflater inflater,
-			ViewGroup container, Bundle savedInstacneState) {
+			ViewGroup container, Bundle savedInstanceState) {
 		this.currentView = inflater.inflate(this.layoutId,
 				container, false);
 		this.currentView.setFocusable(true);

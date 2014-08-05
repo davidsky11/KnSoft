@@ -12,9 +12,11 @@ import org.ksoap2.transport.HttpTransportSE;
 import android.util.Log;
 
 public class BaseClient {
-	private static final String BASE_LOCATION = "http://10.0.2.2:8080/KnService/services/";
+	
 	private static final String TAG = "BaseClient";
+	
 	private static final String TARGET_NAMESPACE = "http://service.whl.kn.com/";
+	private static final String BASE_LOCATION = "http://10.0.2.2:8080/KnService/services/";
 
 	/**
 	 * 获取WebService的Soap对象

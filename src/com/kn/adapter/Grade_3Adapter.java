@@ -15,18 +15,18 @@ public class Grade_3Adapter extends ZhanDianAdapter<Grade_3> {
 	private static final String TAG = "三级站点Adapter";
 	private Fragment fragment;
 
-	public Grade_3Adapter(Fragment paramFragment, List<Grade_3> paramList) {
-		super(paramList);
-		this.fragment = paramFragment;
+	public Grade_3Adapter(Fragment fragment, List<Grade_3> list) {
+		super(list);
+		this.fragment = fragment;
 		Log.d(TAG, getClass().getName());
 	}
 
-	public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-		if (paramView == null)
-			paramView = LayoutInflater.from(this.fragment.getActivity())
-					.inflate(R.layout.zhan_dian_item, null);
-		((TextView) paramView.findViewById(R.id.text_title))
-				.setText(((Grade_3) getItem(paramInt)).getGrade_3_name());
-		return paramView;
+	public View getView(int position, View view, ViewGroup container) {
+		if (view == null)
+			view = LayoutInflater.from(this.fragment.getActivity()).inflate(
+					R.layout.zhan_dian_item, null);
+		((TextView) view.findViewById(R.id.text_title))
+				.setText(((Grade_3) getItem(position)).getGrade_3_name());
+		return view;
 	}
 }

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -26,16 +25,16 @@ public class ChaKanPeiZhiFragment extends Fragment {
 		this.layoutId = layoutId;
 	}
 
-	public void onCreate(Bundle paramBundle) {
+	public void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "*onCreate");
-		super.onCreate(paramBundle);
+		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
+	public View onCreateView(LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
 		Log.d(TAG, "*onCreateView");
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+		this.currentView = inflater.inflate(this.layoutId,
+				container, false);
 		this.currentView.setFocusable(true);
 		Log.d(TAG, "*focus:" + this.currentView.isFocusable());
 		this.button_back_ckpz = ((Button) this.currentView
@@ -44,7 +43,7 @@ public class ChaKanPeiZhiFragment extends Fragment {
 				"*button_back_ckpz focus:"
 						+ this.button_back_ckpz.isFocusable());
 		this.button_back_ckpz.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View paramView) {
+			public void onClick(View view) {
 				Log.d(TAG, "*button_back_ckpz");
 			}
 		});
@@ -76,8 +75,8 @@ public class ChaKanPeiZhiFragment extends Fragment {
 		super.onStop();
 	}
 
-	public void onViewCreated(View paramView, Bundle paramBundle) {
+	public void onViewCreated(View view, Bundle savedInstanceState) {
 		Log.d(TAG, "*onViewCreated");
-		super.onViewCreated(paramView, paramBundle);
+		super.onViewCreated(view, savedInstanceState);
 	}
 }

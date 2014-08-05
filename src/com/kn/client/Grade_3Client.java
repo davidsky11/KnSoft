@@ -8,38 +8,35 @@ import java.util.List;
 import org.ksoap2.serialization.SoapObject;
 
 public class Grade_3Client extends BaseClient {
+
 	private static final String TAG = "Grade_2Client";
 
 	public static List<Grade_3> grade_3List(int paramInt) {
-		ArrayList localArrayList = new ArrayList();
-		HashMap localHashMap = new HashMap();
-		localHashMap.put("keyValue", Integer.valueOf(paramInt));
-		localHashMap.put("keyName", "grade_2_id");
+		ArrayList list = new ArrayList();
+		HashMap hm = new HashMap();
+		hm.put("keyValue", Integer.valueOf(paramInt));
+		hm.put("keyName", "grade_2_id");
 		try {
-			SoapObject localSoapObject1 = getSoapObject(localHashMap,
-					"grade_3", "findEntityListByForeignKey");
-			if (localSoapObject1 == null) {
+			SoapObject so1 = getSoapObject(hm, "grade_3",
+					"findEntityListByForeignKey");
+			if (so1 == null) {
 				Log.e(TAG, "soapObject为空");
 				return null;
 			}
-			SoapObject localSoapObject2 = (SoapObject) localSoapObject1
-					.getProperty(0);
-			Log.e(TAG, "*" + localSoapObject2.getPropertyCount());
-			for (int i = 0; i < localSoapObject2.getPropertyCount(); i++) {
-				SoapObject localSoapObject3 = (SoapObject) localSoapObject2
-						.getProperty(i);
-				Grade_3 localGrade_3 = new Grade_3();
-				localGrade_3.setId(Integer.parseInt(localSoapObject3
-						.getPropertyAsString("id")));
-				localGrade_3.setGrade_3_name(localSoapObject3
-						.getPropertyAsString("grade_3_name"));
-				localGrade_3.setGrade_2_id(paramInt);
-				localArrayList.add(localGrade_3);
-				Log.e(TAG, "*:" + localGrade_3);
+			SoapObject so2 = (SoapObject) so1.getProperty(0);
+			Log.e(TAG, "*" + so2.getPropertyCount());
+			for (int i = 0; i < so2.getPropertyCount(); i++) {
+				SoapObject so3 = (SoapObject) so2.getProperty(i);
+				Grade_3 grade_3 = new Grade_3();
+				grade_3.setId(Integer.parseInt(so3.getPropertyAsString("id")));
+				grade_3.setGrade_3_name(so3.getPropertyAsString("grade_3_name"));
+				grade_3.setGrade_2_id(paramInt);
+				list.add(grade_3);
+				Log.e(TAG, "*:" + grade_3);
 			}
-		} catch (Exception localException) {
-			localException.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return localArrayList;
+		return list;
 	}
 }

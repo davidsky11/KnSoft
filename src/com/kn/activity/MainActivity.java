@@ -75,8 +75,6 @@ public class MainActivity extends FragmentActivity {
 	private Button button_paiSongFanWei = null;
 	private Button button_qianShou = null;
 	private Button button_quanBu_delete = null;
-	private Button button_shangChuang_begin = null;
-	private Button button_shangChuang_stop = null;
 	private Button button_sheBeiPeiZhi = null;
 	private Button button_shiJianTongBu = null;
 	private Button button_shouJian = null;
@@ -120,7 +118,7 @@ public class MainActivity extends FragmentActivity {
 			}
 		}
 	};
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -163,9 +161,9 @@ public class MainActivity extends FragmentActivity {
 						this.resources.getDrawable(R.drawable.ic_cxdl))
 				.setContent(R.id.tab_chongXinDengLu));
 		setTabsText(this.tabHost);
-		DisplayMetrics localDisplayMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
-		int i = localDisplayMetrics.widthPixels;
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int i = displayMetrics.widthPixels;
 		this.tabHost.setCurrentTab(0);
 		for (int j = 0;; j++) {
 			if (j >= this.tabs.getChildCount()) {
@@ -196,19 +194,19 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public boolean onDown(MotionEvent e) {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 
 		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float x,
+				float y) {
 			if (e2.getRawX() - e1.getRawX() > 80.0F) {
 				MainActivity.this.showNext();
 				return true;
 			}
 			if (e1.getRawX() - e2.getRawX() > 80.0F) {
-				MainActivity.this.showNext();
+				MainActivity.this.showPre();
 				return true;
 			}
 			return false;
@@ -216,26 +214,24 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public void onLongPress(MotionEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
 		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2,
-				float distanceX, float distanceY) {
-			// TODO Auto-generated method stub
+				float x, float y) {
+			
 			return false;
 		}
 
 		@Override
 		public void onShowPress(MotionEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
-			// TODO Auto-generated method stub
+
 			return false;
 		}
 
@@ -362,9 +358,10 @@ public class MainActivity extends FragmentActivity {
 											paramDialogInterface.dismiss();
 											return;
 										case 2:
+											Log.d(TAG, "which:" + paramInt);
+											paramDialogInterface.dismiss();
+											return;
 										}
-										Log.d(TAG, "which:" + paramInt);
-										paramDialogInterface.dismiss();
 									}
 								}).create().show();
 				return;
@@ -386,7 +383,7 @@ public class MainActivity extends FragmentActivity {
 						MainActivity.this.fragment, "查看配置");
 			case R.id.button_sheBeiPeiZhi:
 				Log.d(TAG, "设备配置被点击");
-				
+
 				return;
 			case R.id.button_back_glgj:
 				Log.d(TAG, "返回被点击");
@@ -404,11 +401,11 @@ public class MainActivity extends FragmentActivity {
 				.beginTransaction();
 		this.fragmentTransaction.replace(id, this.fragment);
 		this.fragmentTransaction
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE); // 4099
+				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		this.fragmentTransaction.commit();
 		closePopupWindow();
 	}
-	
+
 	private class DownAppRunable implements Runnable {
 
 		private DownAppRunable() {
@@ -416,12 +413,12 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
+			Message message = Message.obtain();
 			if (UpdateAppUtils.downApp(MainActivity.this
 					.getApplicationContext()))
 				;
-			for (localMessage.what = DOWN_APP_FLAG_SUCCESS;; localMessage.what = DOWN_APP_FLAG_FALIURE) {
-				MainActivity.this.mainHandler.sendMessage(localMessage);
+			for (message.what = DOWN_APP_FLAG_SUCCESS;; message.what = DOWN_APP_FLAG_FALIURE) {
+				MainActivity.this.mainHandler.sendMessage(message);
 				return;
 			}
 		}
@@ -439,7 +436,6 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
-	
 	private class CheckAppRunnable implements Runnable {
 
 		private CheckAppRunnable() {
@@ -447,11 +443,11 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
+			Message message = Message.obtain();
 			if (UpdateAppUtils.checkAppCode(MainActivity.this))
 				;
-			for (localMessage.what = CHECK_APP_FLAG_TRUE;; localMessage.what = CHECK_APP_FLAG_FALSE) {
-				MainActivity.this.mainHandler.sendMessage(localMessage);
+			for (message.what = CHECK_APP_FLAG_TRUE;; message.what = CHECK_APP_FLAG_FALSE) {
+				MainActivity.this.mainHandler.sendMessage(message);
 				return;
 			}
 		}
@@ -461,8 +457,8 @@ public class MainActivity extends FragmentActivity {
 
 		private int position;
 
-		public OnTabViewClickListenerImpl(int clickId) {
-			this.position = clickId;
+		public OnTabViewClickListenerImpl(int position) {
+			this.position = position;
 		}
 
 		@Override
@@ -548,19 +544,37 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	protected void showPre() {
+		closePopupWindow();
+		Log.i("MainActivity", "before pre touch:" + this.index);
+		TabHost localTabHost = this.tabHost;
+		int i = 0;
+		if (this.index == 0)
+			i = -1 + this.tabs.getChildCount();
+		while (true) {
+			this.index = i;
+			localTabHost.setCurrentTab(i);
+			this.tabs.setCurrentTab(this.index);
+			Log.i("MainActivity", "pre:" + this.index);
+			i = -1 + this.index;
+			this.index = i;
+			return;
+		}
+	}
+
 	private void initPopWindow(int layoutId) {
-		View localView = ((LayoutInflater) getSystemService("layout_inflater"))
+		View view = ((LayoutInflater) getSystemService("layout_inflater"))
 				.inflate(layoutId, null);
-		this.popupWindow = new PopupWindow(localView, -2, -2, true);
+		this.popupWindow = new PopupWindow(view, -2, -2, true);
 		this.popupWindow.setFocusable(false);
 		this.popupWindow.setOutsideTouchable(true);
 		this.popupWindow.setTouchable(true);
-		this.popupWindow.setBackgroundDrawable(new ColorDrawable(Color.GRAY)); // -7829368
+		this.popupWindow.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
 		this.popupWindow.update();
 
-		localView.setOnTouchListener(new View.OnTouchListener() {
+		view.setOnTouchListener(new View.OnTouchListener() {
 
-			public boolean onTouch(View paramView, MotionEvent paramMotionEvent) {
+			public boolean onTouch(View view, MotionEvent event) {
 				if ((MainActivity.this.popupWindow != null)
 						&& (MainActivity.this.popupWindow.isShowing())) {
 					MainActivity.this.popupWindow.dismiss();
@@ -575,21 +589,21 @@ public class MainActivity extends FragmentActivity {
 			return;
 		case R.layout.tiao_ma_sao_miao:
 			Log.e(TAG, "button tiaomasaomiao has been pressed!");
-			this.button_shouJian = ((Button) localView
+			this.button_shouJian = ((Button) view
 					.findViewById(R.id.button_shouJian));
-			this.button_faJian = ((Button) localView
+			this.button_faJian = ((Button) view
 					.findViewById(R.id.button_faJian));
-			this.button_daoJian = ((Button) localView
+			this.button_daoJian = ((Button) view
 					.findViewById(R.id.button_daoJian));
-			this.button_paiJian = ((Button) localView
+			this.button_paiJian = ((Button) view
 					.findViewById(R.id.button_paiJian));
-			this.button_qianShou = ((Button) localView
+			this.button_qianShou = ((Button) view
 					.findViewById(R.id.button_qianShou));
-			this.button_wenTiJian = ((Button) localView
+			this.button_wenTiJian = ((Button) view
 					.findViewById(R.id.button_wenTiJian));
-			this.button_liuCangJian = ((Button) localView
+			this.button_liuCangJian = ((Button) view
 					.findViewById(R.id.button_liuCangJian));
-			this.button_back_tmsm = ((Button) localView
+			this.button_back_tmsm = ((Button) view
 					.findViewById(R.id.button_back_tmsm));
 			this.button_shouJian
 					.setOnClickListener(new OnButtonClickListenerImpl());
@@ -609,39 +623,40 @@ public class MainActivity extends FragmentActivity {
 					.setOnClickListener(new OnButtonClickListenerImpl());
 			return;
 		case R.layout.shan_chu_shu_ju:
-			this.button_danBi_delete = ((Button) localView
+			this.button_danBi_delete = ((Button) view
 					.findViewById(R.id.button_danBi_delete));
-			this.button_quanBu_delete = ((Button) localView
+			this.button_quanBu_delete = ((Button) view
 					.findViewById(R.id.button_quanBu_delete));
-			this.button_back_scsj = ((Button) localView
+			this.button_back_scsj = ((Button) view
 					.findViewById(R.id.button_back_scsj));
 			this.button_danBi_delete
 					.setOnClickListener(new OnButtonClickListenerImpl());
 			this.button_quanBu_delete
 					.setOnClickListener(new OnButtonClickListenerImpl());
 			this.button_back_scsj
-			.setOnClickListener(new OnButtonClickListenerImpl());
+					.setOnClickListener(new OnButtonClickListenerImpl());
 			return;
-//		case 数据上传：
-//		case R.layout.shu_ju_shang_chuan:
-//			this.button_shangChuang_begin = ((Button) localView
-//					.findViewById(R.id.button_shangChuan));
-//			this.button_shangChuang_stop = ((Button) localView.findViewById(R.id.button_shan))
-//			return;
+			// case 数据上传：
+			// case R.layout.shu_ju_shang_chuan:
+			// this.button_shangChuang_begin = ((Button) localView
+			// .findViewById(R.id.button_shangChuan));
+			// this.button_shangChuang_stop = ((Button)
+			// localView.findViewById(R.id.button_shan))
+			// return;
 		case R.layout.chang_yong_gong_ju:
-			this.button_paiSongFanWei = ((Button) localView
+			this.button_paiSongFanWei = ((Button) view
 					.findViewById(R.id.button_paiSongFanWei));
-			this.button_yunDanZhuiZong = ((Button) localView
+			this.button_yunDanZhuiZong = ((Button) view
 					.findViewById(R.id.button_yunDanZhuiZong));
-			this.button_chengXuGengXin = ((Button) localView
+			this.button_chengXuGengXin = ((Button) view
 					.findViewById(R.id.button_chengXuGengXin));
-			this.button_shiJianTongBu = ((Button) localView
+			this.button_shiJianTongBu = ((Button) view
 					.findViewById(R.id.button_shiJianTongBu));
-			this.button_gengXinShuJu = ((Button) localView
+			this.button_gengXinShuJu = ((Button) view
 					.findViewById(R.id.button_gengXinShuJu));
-			this.button_wangLuoCeShi = ((Button) localView
+			this.button_wangLuoCeShi = ((Button) view
 					.findViewById(R.id.button_wangLuoCeShi));
-			this.button_back_cygj = ((Button) localView
+			this.button_back_cygj = ((Button) view
 					.findViewById(R.id.button_back_cygj));
 			this.button_paiSongFanWei
 					.setOnClickListener(new OnButtonClickListenerImpl());
@@ -659,11 +674,11 @@ public class MainActivity extends FragmentActivity {
 					.setOnClickListener(new OnButtonClickListenerImpl());
 			return;
 		case R.layout.guan_li_gong_ju:
-			this.button_chaKanPeiZhi = ((Button) localView
+			this.button_chaKanPeiZhi = ((Button) view
 					.findViewById(R.id.button_chaKanPeiZhi));
-			this.button_sheBeiPeiZhi = ((Button) localView
+			this.button_sheBeiPeiZhi = ((Button) view
 					.findViewById(R.id.button_sheBeiPeiZhi));
-			this.button_back_glgj = ((Button) localView
+			this.button_back_glgj = ((Button) view
 					.findViewById(R.id.button_back_glgj));
 			this.button_chaKanPeiZhi
 					.setOnClickListener(new OnButtonClickListenerImpl());
@@ -671,7 +686,7 @@ public class MainActivity extends FragmentActivity {
 					.setOnClickListener(new OnButtonClickListenerImpl());
 			this.button_back_glgj
 					.setOnClickListener(new OnButtonClickListenerImpl());
-		// case 重新登录：
+			// case 重新登录：
 		}
 	}
 

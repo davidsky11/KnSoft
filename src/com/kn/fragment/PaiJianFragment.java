@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,8 +16,11 @@ import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
 public class PaiJianFragment extends Fragment implements View.OnClickListener {
-	
+
 	private static final String TAG = "派件Fragment";
+
+	private int layoutId = R.layout.pai_jian;
+
 	private Button button_alter = null;
 	private Button button_back = null;
 	private Button button_commit = null;
@@ -27,14 +29,13 @@ public class PaiJianFragment extends Fragment implements View.OnClickListener {
 	private Button button_useCurrentUser = null;
 	private View currentView;
 	private EditText edit_yeWuYuanId = null;
-	private int layoutId = R.layout.pai_jian;
 	private ListView listView_yiSaoMiao = null;
 
 	public PaiJianFragment() {
 	}
 
-	public PaiJianFragment(int paramInt) {
-		this.layoutId = paramInt;
+	public PaiJianFragment(int layoutId) {
+		this.layoutId = layoutId;
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -72,14 +73,13 @@ public class PaiJianFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.edit_yeWuYuanId = ((EditText) this.currentView
 				.findViewById(R.id.edit_yeWuYuanId));
@@ -87,14 +87,16 @@ public class PaiJianFragment extends Fragment implements View.OnClickListener {
 				.findViewById(R.id.button_useCurrentUser));
 		this.button_confirm = ((Button) this.currentView
 				.findViewById(R.id.button_confirm));
-		this.button_alter = ((Button) this.currentView.findViewById(R.id.button_alter));
+		this.button_alter = ((Button) this.currentView
+				.findViewById(R.id.button_alter));
 		this.button_saomiao = ((Button) this.currentView
 				.findViewById(R.id.button_saomiao));
 		this.listView_yiSaoMiao = ((ListView) this.currentView
 				.findViewById(R.id.listView_yiSaoMiao));
 		this.button_commit = ((Button) this.currentView
 				.findViewById(R.id.button_commit));
-		this.button_back = ((Button) this.currentView.findViewById(R.id.button_back));
+		this.button_back = ((Button) this.currentView
+				.findViewById(R.id.button_back));
 		this.button_alter.setOnClickListener(this);
 		this.button_saomiao.setOnClickListener(this);
 		this.button_commit.setOnClickListener(this);

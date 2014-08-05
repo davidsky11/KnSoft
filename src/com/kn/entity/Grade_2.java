@@ -11,27 +11,27 @@ public class Grade_2 implements Serializable {
 	private int id;
 
 	public int getGrade_1_id() {
-		return this.grade_1_id;
+		return grade_1_id;
+	}
+
+	public void setGrade_1_id(int grade_1_id) {
+		this.grade_1_id = grade_1_id;
 	}
 
 	public String getGrade_2_name() {
-		return this.grade_2_name;
+		return grade_2_name;
+	}
+
+	public void setGrade_2_name(String grade_2_name) {
+		this.grade_2_name = grade_2_name;
 	}
 
 	public int getId() {
-		return this.id;
+		return id;
 	}
 
-	public void setGrade_1_id(int paramInt) {
-		this.grade_1_id = paramInt;
-	}
-
-	public void setGrade_2_name(String paramString) {
-		this.grade_2_name = paramString;
-	}
-
-	public void setId(int paramInt) {
-		this.id = paramInt;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String toString() {

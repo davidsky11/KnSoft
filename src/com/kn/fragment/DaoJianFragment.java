@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,19 +66,20 @@ public class DaoJianFragment extends Fragment implements View.OnClickListener {
 		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.shangYiWangDian_id = ((EditText) this.currentView
 				.findViewById(R.id.edit_shangYiWangDian_id));
-		this.zhongLiang = ((EditText) this.currentView.findViewById(R.id.edit_zhongLiang));
+		this.zhongLiang = ((EditText) this.currentView
+				.findViewById(R.id.edit_zhongLiang));
 		this.listView_yiSaoMiao = ((ListView) this.currentView
 				.findViewById(R.id.listView_yiSaoMiao));
 		this.button_commit = ((Button) this.currentView
 				.findViewById(R.id.button_commit));
-		this.button_back = ((Button) this.currentView.findViewById(R.id.button_back));
+		this.button_back = ((Button) this.currentView
+				.findViewById(R.id.button_back));
 		this.button_saomiao = ((Button) this.currentView
 				.findViewById(R.id.button_back));
 		ListViewUtils.listViewYiSaoMiao(this, this.listView_yiSaoMiao);
@@ -90,22 +90,21 @@ public class DaoJianFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private class TextWatcherImpl implements TextWatcher {
-		
+
 		private TextWatcherImpl() {
-			
+
 		}
 
-		public void afterTextChanged(Editable edit) {
+		public void afterTextChanged(Editable s) {
 		}
 
-		public void beforeTextChanged(CharSequence paramCharSequence,
-				int paramInt1, int paramInt2, int paramInt3) {
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
 		}
 
-		public void onTextChanged(CharSequence paramCharSequence,
-				int paramInt1, int paramInt2, int paramInt3) {
-			if ((paramCharSequence.length() > 0)
-					&& (paramCharSequence.charAt(0) == '.'))
+		public void onTextChanged(CharSequence s, int start, int count,
+				int after) {
+			if ((s.length() > 0) && (s.charAt(0) == '.'))
 				DaoJianFragment.this.zhongLiang.setText("");
 		}
 	}

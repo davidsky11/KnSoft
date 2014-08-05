@@ -13,44 +13,44 @@ public class Account implements Serializable {
 	private Date birthday;
 	private String email;
 	
-	public Date getBirthday() {
-		return this.birthday;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
 	public int getId() {
-		return this.id;
+		return id;
 	}
 
-	public String getPassword() {
-		return this.password;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
-	public void setBirthday(Date paramDate) {
-		this.birthday = paramDate;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public void setEmail(String paramString) {
-		this.email = paramString;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setId(int paramInt) {
-		this.id = paramInt;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setPassword(String paramString) {
-		this.password = paramString;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setUsername(String paramString) {
-		this.username = paramString;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String toString() {

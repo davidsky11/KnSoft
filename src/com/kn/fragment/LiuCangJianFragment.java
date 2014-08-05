@@ -6,10 +6,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,15 +21,17 @@ import com.kn.utils.SaoMiaoUtils;
 
 public class LiuCangJianFragment extends Fragment implements
 		View.OnClickListener {
+
 	private static final String[] SPINNER_DATA = { "1", "2", "3", "4", "5" };
 	private static final String TAG = "留仓件Fragment";
+	private int layoutId = R.layout.liu_cang_jian;
+
 	private Button button_alter = null;
 	private Button button_back = null;
 	private Button button_commit = null;
 	private Button button_saomiao = null;
 	private View currentView;
 	private EditText edit_liuCangJian_description = null;
-	private int layoutId = R.layout.liu_cang_jian;
 	private ListView listView_yiSaoMiao = null;
 	private ArrayAdapter<String> spinnerAdapter = null;
 	private Spinner spinner_liuCangJian_type = null;
@@ -41,8 +41,8 @@ public class LiuCangJianFragment extends Fragment implements
 	public LiuCangJianFragment() {
 	}
 
-	public LiuCangJianFragment(int paramInt) {
-		this.layoutId = paramInt;
+	public LiuCangJianFragment(int layoutId) {
+		this.layoutId = layoutId;
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -59,8 +59,8 @@ public class LiuCangJianFragment extends Fragment implements
 		}
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.button_back:
 		case R.id.button_commit:
 		default:
@@ -77,14 +77,13 @@ public class LiuCangJianFragment extends Fragment implements
 		}
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.spinner_liuCangJian_type = ((Spinner) this.currentView
 				.findViewById(R.id.spinner_liuCangJian_type));
@@ -121,19 +120,19 @@ public class LiuCangJianFragment extends Fragment implements
 
 	private class OnItemSelectedListenerImpl implements
 			AdapterView.OnItemSelectedListener {
-		
+
 		private OnItemSelectedListenerImpl() {
-			
+
 		}
 
-		public void onItemSelected(AdapterView<?> paramAdapterView,
-				View paramView, int paramInt, long paramLong) {
+		public void onItemSelected(AdapterView<?> parent, View view,
+				int position, long id) {
 			LiuCangJianFragment.this.edit_liuCangJian_description
-					.setText(LiuCangJianFragment.SPINNER_DATA[paramInt]);
+					.setText(LiuCangJianFragment.SPINNER_DATA[position]);
 		}
 
-		public void onNothingSelected(AdapterView<?> paramAdapterView) {
-			
+		public void onNothingSelected(AdapterView<?> parent) {
+
 		}
 	}
 }

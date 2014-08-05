@@ -20,16 +20,16 @@ import com.kn.utils.SharedPreferencesManager;
 import com.kn.utils.UpdateAppUtils;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
-	
+
 	private static final int CHECK_APP_FLAG_FALSE = 22;
 	private static final int CHECK_APP_FLAG_TRUE = 11;
 	private static final int DOWN_APP_FLAG_FALIURE = 44;
 	private static final int DOWN_APP_FLAG_SUCCESS = 33;
 	private static final int LOGIN_FAILURE = 0;
 	private static final int LOGIN_SUCCESS = 1;
-	
+
 	private static final String TAG = "LoginActivity";
-	
+
 	private Button button_loginoff = null;
 	private Button button_loginon = null;
 	private AlertDialog.Builder checkAppDialog = null;
@@ -37,7 +37,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private EditText edit_password = null;
 	private EditText edit_username = null;
 	private ProgressDialog loginProgress = null;
-	
+
 	private Handler mainHandler = new Handler() {
 		public void handleMessage(Message message) {
 			super.handleMessage(message);
@@ -46,12 +46,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				return;
 			case LOGIN_SUCCESS:
 				Log.e(TAG, "登录成功");
-				String str = message.obj.toString();				// 获取用户名字段
+				String str = message.obj.toString(); // 获取用户名字段
 				SharedPreferencesManager.putUser(
 						LoginActivity.this.getApplicationContext(), str);
-				Intent localIntent = new Intent();
-				localIntent.setClass(LoginActivity.this, MainActivity.class);
-				LoginActivity.this.startActivity(localIntent);
+				Intent intent = new Intent();
+				intent.setClass(LoginActivity.this, MainActivity.class);
+				LoginActivity.this.startActivity(intent);
 				LoginActivity.this.loginProgress.dismiss();
 				return;
 			case LOGIN_FAILURE:
@@ -72,7 +72,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 								paramDialogInterface.dismiss();
 								LoginActivity.this.checkAppProgress
 										.setTitle("正在下载应用...");
-								new Thread(new LoginActivity.DownAppRunable()).start();
+								new Thread(new LoginActivity.DownAppRunable())
+										.start();
 							}
 						});
 				LoginActivity.this.checkAppDialog.setPositiveButton("否",
@@ -102,78 +103,78 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		}
 	};
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.button_loginoff:
 		default:
 			return;
 		case R.id.button_loginon:
 			String str1 = this.edit_username.getText().toString();
 			String str2 = this.edit_password.getText().toString();
-			this.loginProgress = ProgressDialog.show(this, "正在登录...", null, true,
-					false);
+			this.loginProgress = ProgressDialog.show(this, "正在登录...", null,
+					true, false);
 			new Thread(new LoginRunnable(str1, str2)).start();
 		}
 	}
 
-	protected void onCreate(Bundle paramBundle) {
-		
-		super.onCreate(paramBundle);
+	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		
+
 		this.edit_username = ((EditText) findViewById(R.id.edit_username));
 		this.edit_password = ((EditText) findViewById(R.id.edit_password));
 		this.button_loginon = ((Button) findViewById(R.id.button_loginon));
 		this.button_loginoff = ((Button) findViewById(R.id.button_loginoff));
 		this.button_loginon.setOnClickListener(this);
 		this.button_loginoff.setOnClickListener(this);
-//		this.checkAppProgress = ProgressDialog.show(this, "正在检测更新...", null,
-//				true, false);
-//		new Thread(new CheckAppRunnable()).start();
+		// this.checkAppProgress = ProgressDialog.show(this, "正在检测更新...", null,
+		// true, false);
+		// new Thread(new CheckAppRunnable()).start();
 	}
 
 	private class CheckAppRunnable implements Runnable {
-		
+
 		private CheckAppRunnable() {
-			
+
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
+			Message message = Message.obtain();
 			Log.i(TAG, "CheckAppRunnable >>> ");
-			Boolean b = false;
-			if (b = UpdateAppUtils.checkAppCode(LoginActivity.this))
+			Boolean flag = false;
+			if (flag = UpdateAppUtils.checkAppCode(LoginActivity.this))
 				;
-			Log.i(TAG, "b : " + b);
-			for (localMessage.what = CHECK_APP_FLAG_TRUE;; localMessage.what = CHECK_APP_FLAG_FALSE) {
-				LoginActivity.this.mainHandler.sendMessage(localMessage);
+			Log.i(TAG, "flag : " + flag);
+			for (message.what = CHECK_APP_FLAG_TRUE;; message.what = CHECK_APP_FLAG_FALSE) {
+				LoginActivity.this.mainHandler.sendMessage(message);
 				return;
 			}
 		}
 	}
 
 	private class DownAppRunable implements Runnable {
-		
+
 		private DownAppRunable() {
-			
+
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
+			Message message = Message.obtain();
 			if (UpdateAppUtils.downApp(LoginActivity.this
 					.getApplicationContext()))
 				;
-			for (localMessage.what = DOWN_APP_FLAG_SUCCESS;; localMessage.what = DOWN_APP_FLAG_FALIURE) {
-				LoginActivity.this.mainHandler.sendMessage(localMessage);
+			for (message.what = DOWN_APP_FLAG_SUCCESS;; message.what = DOWN_APP_FLAG_FALIURE) {
+				LoginActivity.this.mainHandler.sendMessage(message);
 				return;
 			}
 		}
 	}
 
 	private class InstallAppRunnable implements Runnable {
-		
+
 		private InstallAppRunnable() {
-			
+
 		}
 
 		public void run() {
@@ -183,7 +184,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	}
 
 	private class LoginRunnable implements Runnable {
-		
+
 		private String password;
 		private String username;
 
@@ -193,17 +194,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
+			Message message = Message.obtain();
 			if (AccountClient.login(this.username, this.password)) {
 				Log.i(TAG, "用户信息验证通过！");
-				localMessage.what = LOGIN_SUCCESS;
-				localMessage.obj = LoginActivity.this.edit_username.getText()
+				message.what = LOGIN_SUCCESS;
+				message.obj = LoginActivity.this.edit_username.getText()
 						.toString();
 			} else {
 				Log.i(TAG, "用户信息验证失败！");
-				localMessage.what = LOGIN_FAILURE;
+				message.what = LOGIN_FAILURE;
 			}
-			LoginActivity.this.mainHandler.sendMessage(localMessage);
+			LoginActivity.this.mainHandler.sendMessage(message);
 		}
 	}
 }

@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 public abstract class ZhanDianAdapter<T> extends BaseAdapter {
+	
 	private static final String TAG = "站点Adapter";
 	private List<T> zhanDianList;
 
@@ -19,14 +20,14 @@ public abstract class ZhanDianAdapter<T> extends BaseAdapter {
 		return this.zhanDianList.size();
 	}
 
-	public Object getItem(int paramInt) {
-		return this.zhanDianList.get(paramInt);
+	public Object getItem(int position) {
+		return this.zhanDianList.get(position);
 	}
 
-	public long getItemId(int paramInt) {
-		return paramInt;
+	public long getItemId(int position) {
+		return position;
 	}
 
-	public abstract View getView(int paramInt, View paramView,
-			ViewGroup paramViewGroup);
+	public abstract View getView(int position, View view,
+			ViewGroup container);
 }

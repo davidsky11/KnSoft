@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 public class ChongXinDengLuFragment extends Fragment {
 	
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		return paramLayoutInflater.inflate(R.layout.settings, paramViewGroup, true);
+	public View onCreateView(LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.settings, container, true);
 	}
 }

@@ -1,5 +1,8 @@
 package com.kn.fragment;
 
+import java.io.Serializable;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -9,10 +12,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -21,34 +22,35 @@ import com.kn.adapter.Grade_2Adapter;
 import com.kn.client.Grade_2Client;
 import com.kn.entity.Grade_2;
 import com.kn.utils.FragmentUtils;
-import java.io.Serializable;
-import java.util.List;
 
 public class Grade_2Fragment extends Fragment implements View.OnClickListener {
+	
 	private static final String TAG = "二级站点Fragment";
+	private int layoutId = R.layout.grade_2;
+	private int grade_1_id;
+	
 	private Button button_back;
 	private Button button_shangYiCeng;
 	private View currentView;
-	private int grade_1_id;
 	private List<Grade_2> grade_2List = null;
-	private int layoutId = R.layout.grade_2;
 	private ListView listView_grade_2 = null;
-	private Handler loadDataHandler = new Handler() {
-		public void handleMessage(Message paramMessage) {
-			super.handleMessage(paramMessage);
-			Grade_2Fragment.this.grade_2List = ((List) paramMessage.getData()
+	private ProgressDialog dataProgress = null;
+	
+	private Handler dataHandler = new Handler() {
+		public void handleMessage(Message message) {
+			super.handleMessage(message);
+			Grade_2Fragment.this.grade_2List = ((List) message.getData()
 					.getSerializable("grade_2"));
 			if (Grade_2Fragment.this.grade_2List != null) {
-				Grade_2Adapter localGrade_2Adapter = new Grade_2Adapter(
+				Grade_2Adapter grade_2Adapter = new Grade_2Adapter(
 						Grade_2Fragment.this, Grade_2Fragment.this.grade_2List);
 				Grade_2Fragment.this.listView_grade_2
-						.setAdapter(localGrade_2Adapter);
-				localGrade_2Adapter.notifyDataSetChanged();
+						.setAdapter(grade_2Adapter);
+				grade_2Adapter.notifyDataSetChanged();
 			}
-			Grade_2Fragment.this.loadDataProgress.dismiss();
+			Grade_2Fragment.this.dataProgress.dismiss();
 		}
 	};
-	private ProgressDialog loadDataProgress = null;
 
 	public Grade_2Fragment() {
 		Log.d(TAG, "空构造方法");
@@ -59,21 +61,21 @@ public class Grade_2Fragment extends Fragment implements View.OnClickListener {
 		this.grade_1_id = layoutId;
 	}
 
-	public void onActivityCreated(Bundle paramBundle) {
-		super.onActivityCreated(paramBundle);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		Log.d("二级站点Fragment", "onActivityCreated方法");
 		new Thread(new LoadDataRunnable(this.grade_1_id)).start();
 	}
 
-	public void onAttach(Activity paramActivity) {
-		super.onAttach(paramActivity);
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
 		Log.d(TAG, "onAttach方法");
-		this.loadDataProgress = ProgressDialog.show(paramActivity, "正在加载数据...",
+		this.dataProgress = ProgressDialog.show(activity, "正在加载数据...",
 				null, true, false);
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		default:
 			return;
 		case R.id.button_shangYiCeng:
@@ -85,29 +87,29 @@ public class Grade_2Fragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate方法");
 	}
 
-	public View onCreateView(LayoutInflater layoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
+	public View onCreateView(LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView方法");
-		this.currentView = layoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+		this.currentView = inflater.inflate(this.layoutId,
+				container, false);
 		this.currentView.setFocusable(true);
 		return this.currentView;
 	}
 
-	public void onViewCreated(View paramView, Bundle paramBundle) {
-		super.onViewCreated(paramView, paramBundle);
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		Log.d(TAG, "onViewCreated方法");
-		this.button_shangYiCeng = ((Button) paramView
+		this.button_shangYiCeng = ((Button) view
 				.findViewById(R.id.button_shangYiCeng));
 		this.button_shangYiCeng.setOnClickListener(this);
-		this.button_back = ((Button) paramView.findViewById(R.id.button_back));
+		this.button_back = ((Button) view.findViewById(R.id.button_back));
 		this.button_back.setOnClickListener(this);
-		this.listView_grade_2 = ((ListView) paramView
+		this.listView_grade_2 = ((ListView) view
 				.findViewById(R.id.listView_grade_2));
 		this.listView_grade_2
 				.setOnItemClickListener(new OnItemClickListenerImpl());
@@ -121,12 +123,12 @@ public class Grade_2Fragment extends Fragment implements View.OnClickListener {
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
-			Bundle localBundle = new Bundle();
-			localBundle.putSerializable("grade_2",
+			Message message = Message.obtain();
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("grade_2",
 					(Serializable) Grade_2Client.grade_2List(this.key));
-			localMessage.setData(localBundle);
-			Grade_2Fragment.this.loadDataHandler.sendMessage(localMessage);
+			message.setData(bundle);
+			Grade_2Fragment.this.dataHandler.sendMessage(message);
 		}
 	}
 
@@ -135,13 +137,13 @@ public class Grade_2Fragment extends Fragment implements View.OnClickListener {
 		private OnItemClickListenerImpl() {
 		}
 
-		public void onItemClick(AdapterView<?> paramAdapterView,
-				View paramView, int paramInt, long paramLong) {
-			Log.d(TAG, "parent:" + paramAdapterView.getClass().getName()
-					+ ",view:" + paramView.getClass().getName() + ",position:"
-					+ paramInt + ",id:" + paramLong);
+		public void onItemClick(AdapterView<?> parent,
+				View view, int position, long id) {
+			Log.d(TAG, "parent:" + parent.getClass().getName()
+					+ ",view:" + view.getClass().getName() + ",position:"
+					+ position + ",id:" + id);
 			Grade_3Fragment localGrade_3Fragment = new Grade_3Fragment(
-					((Grade_2) Grade_2Fragment.this.grade_2List.get(paramInt))
+					((Grade_2) Grade_2Fragment.this.grade_2List.get(position))
 							.getId());
 			FragmentUtils.popFragment(
 					Grade_2Fragment.this.getFragmentManager(), R.id.tab_changYongGongJu,

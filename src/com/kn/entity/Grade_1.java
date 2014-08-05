@@ -17,8 +17,8 @@ public class Grade_1 implements Serializable {
 		return this.id;
 	}
 
-	public void setGrade_1_name(String paramString) {
-		this.grade_1_name = paramString;
+	public void setGrade_1_name(String grade_1_name) {
+		this.grade_1_name = grade_1_name;
 	}
 
 	public void setId(int paramInt) {

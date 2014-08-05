@@ -6,23 +6,21 @@ import android.support.v4.app.FragmentTransaction;
 
 public final class FragmentUtils {
 
-	public static final void popBackStack(FragmentManager paramFragmentManager) {
-		paramFragmentManager.popBackStackImmediate();
+	public static final void popBackStack(FragmentManager fm) {
+		fm.popBackStackImmediate();
 	}
 
-	public static final void popBackStack(FragmentManager paramFragmentManager,
-			String paramString) {
-		paramFragmentManager.popBackStackImmediate(paramString, 1);
+	public static final void popBackStack(FragmentManager fm, String str) {
+		fm.popBackStackImmediate(str, 1);
 	}
 
-	public static final void popFragment(FragmentManager paramFragmentManager,
-			int paramInt, Fragment paramFragment, String paramString) {
-		FragmentTransaction localFragmentTransaction = paramFragmentManager
-				.beginTransaction();
-		localFragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);	// 17432576, 17432577
-		localFragmentTransaction.replace(paramInt, paramFragment, paramString);
-		localFragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-		localFragmentTransaction.addToBackStack(paramString);
-		localFragmentTransaction.commit();
+	public static final void popFragment(FragmentManager fm, int id,
+			Fragment fragment, String str) {
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+		ft.replace(id, fragment, str);
+		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		ft.addToBackStack(str);
+		ft.commit();
 	}
 }

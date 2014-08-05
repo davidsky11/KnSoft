@@ -7,57 +7,49 @@ import android.telephony.TelephonyManager;
 
 public final class NetworkUtils {
 
-	public static boolean checkNetwork(Context paramContext) {
+	public static boolean checkNetwork(Context context) {
 
 		boolean flag = false;
-		
+
 		try {
-			ConnectivityManager localConnectivityManager = (ConnectivityManager) paramContext
+			ConnectivityManager cm = (ConnectivityManager) context
 					.getSystemService("connectivity");
-			flag = false;
-			if (localConnectivityManager != null) {
-				NetworkInfo localNetworkInfo = localConnectivityManager
-						.getActiveNetworkInfo();
-				flag = false;
-				if (localNetworkInfo != null) {
-					boolean bool = localNetworkInfo.isConnected();
-					flag = false;
-					if (bool) {
-						NetworkInfo.State localState1 = localNetworkInfo
-								.getState();
-						NetworkInfo.State localState2 = NetworkInfo.State.CONNECTED;
-						flag = false;
-						if (localState1 == localState2)
+			if (cm != null) {
+				NetworkInfo ni = cm.getActiveNetworkInfo();
+				if (ni != null) {
+					if (ni.isConnected()) {
+						NetworkInfo.State state1 = ni.getState();
+						if (state1 == NetworkInfo.State.CONNECTED)
 							flag = true;
 					}
 				}
 			}
 			return flag;
-		} catch (Exception localException) {
-			localException.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
-	public static boolean is3G(Context paramContext) {
-		NetworkInfo localNetworkInfo = ((ConnectivityManager) paramContext
+	public static boolean is3G(Context context) {
+		NetworkInfo ni = ((ConnectivityManager) context
 				.getSystemService("connectivity")).getActiveNetworkInfo();
-		return (localNetworkInfo != null) && (localNetworkInfo.getType() == 0);
+		return (ni != null) && (ni.getType() == 0);
 	}
 
-	public static boolean isWifi(Context paramContext) {
-		NetworkInfo localNetworkInfo = ((ConnectivityManager) paramContext
+	public static boolean isWifi(Context context) {
+		NetworkInfo ni = ((ConnectivityManager) context
 				.getSystemService("connectivity")).getActiveNetworkInfo();
-		return (localNetworkInfo != null) && (localNetworkInfo.getType() == 1);
+		return (ni != null) && (ni.getType() == 1);
 	}
 
-	public static boolean isWifiEnabled(Context paramContext) {
-		ConnectivityManager localConnectivityManager = (ConnectivityManager) paramContext
+	public static boolean isWifiEnabled(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context
 				.getSystemService("connectivity");
-		TelephonyManager localTelephonyManager = (TelephonyManager) paramContext
+		TelephonyManager tm = (TelephonyManager) context
 				.getSystemService("phone");
-		return ((localConnectivityManager.getActiveNetworkInfo() != null) && (localConnectivityManager
+		return ((cm.getActiveNetworkInfo() != null) && (cm
 				.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED))
-				|| (localTelephonyManager.getNetworkType() == 3);
+				|| (tm.getNetworkType() == 3);
 	}
 }

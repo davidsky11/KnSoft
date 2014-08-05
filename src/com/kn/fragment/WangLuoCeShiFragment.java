@@ -16,12 +16,15 @@ import com.kn.async.NetworkAsyncTask;
 
 public class WangLuoCeShiFragment extends Fragment implements
 		View.OnClickListener {
+
 	private static final String TAG = "网络测试Fragment";
+
+	private int layoutId = R.layout.wang_luo_ce_shi;
+
 	private Button button_back = null;
 	private Button button_ceSu = null;
 	private Button button_yanChi = null;
 	private View currentView;
-	private int layoutId = R.layout.wang_luo_ce_shi;
 	private NetworkAsyncTask networkAsyncTask = null;
 	private TextView text_ceShi = null;
 
@@ -32,8 +35,8 @@ public class WangLuoCeShiFragment extends Fragment implements
 		this.layoutId = layoutId;
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.button_back:
 		default:
 			return;
@@ -49,22 +52,21 @@ public class WangLuoCeShiFragment extends Fragment implements
 		}
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView方法");
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		return this.currentView;
 	}
 
-	public void onViewCreated(View paramView, Bundle paramBundle) {
-		super.onViewCreated(paramView, paramBundle);
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		Log.d(TAG, "onViewCreated方法");
-		this.text_ceShi = ((TextView) paramView.findViewById(R.id.text_ceShi));
-		this.button_yanChi = ((Button) paramView.findViewById(R.id.button_yanChi));
-		this.button_ceSu = ((Button) paramView.findViewById(R.id.button_ceSu));
-		this.button_back = ((Button) paramView.findViewById(R.id.button_back));
+		this.text_ceShi = ((TextView) view.findViewById(R.id.text_ceShi));
+		this.button_yanChi = ((Button) view.findViewById(R.id.button_yanChi));
+		this.button_ceSu = ((Button) view.findViewById(R.id.button_ceSu));
+		this.button_back = ((Button) view.findViewById(R.id.button_back));
 		this.text_ceShi
 				.setMovementMethod(ScrollingMovementMethod.getInstance());
 		this.button_yanChi.setOnClickListener(this);

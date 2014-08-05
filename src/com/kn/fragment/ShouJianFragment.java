@@ -1,13 +1,11 @@
 package com.kn.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,8 +16,11 @@ import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
 public class ShouJianFragment extends Fragment implements View.OnClickListener {
-	
+
 	private static final String TAG = "收件Fragment";
+
+	private int layoutId = R.layout.shou_jian;
+
 	private Button button_alter = null;
 	private Button button_back = null;
 	private Button button_commit = null;
@@ -28,7 +29,6 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 	private Button button_useCurrentUser = null;
 	private View currentView;
 	private EditText edit_yeWuYuanId = null;
-	private int layoutId = R.layout.shou_jian;
 	private ListView listView_yiSaoMiao = null;
 
 	public ShouJianFragment() {
@@ -52,9 +52,9 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
-		
+	public void onClick(View view) {
+		switch (view.getId()) {
+
 		case R.id.button_back:
 			return;
 		case R.id.button_commit:
@@ -75,14 +75,13 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.edit_yeWuYuanId = ((EditText) this.currentView
 				.findViewById(R.id.edit_yeWuYuanId));
@@ -90,14 +89,16 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 				.findViewById(R.id.button_useCurrentUser));
 		this.button_confirm = ((Button) this.currentView
 				.findViewById(R.id.button_confirm));
-		this.button_alter = ((Button) this.currentView.findViewById(R.id.button_alter));
+		this.button_alter = ((Button) this.currentView
+				.findViewById(R.id.button_alter));
 		this.button_saomiao = ((Button) this.currentView
 				.findViewById(R.id.button_saomiao));
 		this.listView_yiSaoMiao = ((ListView) this.currentView
 				.findViewById(R.id.listView_yiSaoMiao));
 		this.button_commit = ((Button) this.currentView
 				.findViewById(R.id.button_commit));
-		this.button_back = ((Button) this.currentView.findViewById(R.id.button_back));
+		this.button_back = ((Button) this.currentView
+				.findViewById(R.id.button_back));
 		this.button_alter.setOnClickListener(this);
 		this.button_saomiao.setOnClickListener(this);
 		this.button_commit.setOnClickListener(this);

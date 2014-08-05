@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,10 +17,13 @@ import com.kn.R;
 import com.kn.client.DetailClient;
 import com.kn.entity.Detail;
 import com.kn.utils.FragmentUtils;
-import java.util.List;
 
 public class DetailFragment extends Fragment implements View.OnClickListener {
+	
 	private static final String TAG = "站点明细Fragment";
+	private int grade_3_id;
+	private int layoutId = R.layout.detail;
+	
 	private Button button_back;
 	private Button button_shangYiCeng;
 	private View currentView;
@@ -31,51 +33,50 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 	private EditText edit_telephone;
 	private EditText edit_wang_dian_id;
 	private EditText edit_wang_dian_ming_cheng;
-	private int grade_3_id;
-	private int layoutId = R.layout.detail;
-	private Handler loadDataHandler = new Handler() {
-		public void handleMessage(Message paramMessage) {
-			super.handleMessage(paramMessage);
-			Detail localDetail = (Detail) paramMessage.getData()
+	private ProgressDialog dataProgress = null;
+
+	private Handler dataHandler = new Handler() {
+		public void handleMessage(Message message) {
+			super.handleMessage(message);
+			Detail detail = (Detail) message.getData()
 					.getSerializable("detail");
-			if (localDetail != null) {
+			if (detail != null) {
 				DetailFragment.this.edit_wang_dian_ming_cheng
-						.setText(localDetail.getDetail_name());
-				DetailFragment.this.edit_wang_dian_id.setText(localDetail
+						.setText(detail.getDetail_name());
+				DetailFragment.this.edit_wang_dian_id.setText(detail
 						.getDetail_number());
-				DetailFragment.this.edit_fu_ze_ren.setText(localDetail
+				DetailFragment.this.edit_fu_ze_ren.setText(detail
 						.getFu_ze_ren());
-				DetailFragment.this.edit_pai_song_fan_wei.setText(localDetail
+				DetailFragment.this.edit_pai_song_fan_wei.setText(detail
 						.getPai_song_fan_wei());
 				DetailFragment.this.edit_bu_pai_song_fan_wei
-						.setText(localDetail.getBu_pai_song_fan_wei());
-				DetailFragment.this.edit_telephone.setText(localDetail
+						.setText(detail.getBu_pai_song_fan_wei());
+				DetailFragment.this.edit_telephone.setText(detail
 						.getTelephone());
 			}
-			DetailFragment.this.loadDataProgress.dismiss();
+			DetailFragment.this.dataProgress.dismiss();
 		}
 	};
-	private ProgressDialog loadDataProgress = null;
-
+	
 	public DetailFragment() {
 		Log.d(TAG, "空构造方法");
 	}
 
-	public DetailFragment(int paramInt) {
+	public DetailFragment(int layoutId) {
 		Log.d(TAG, "有参构造方法");
-		this.grade_3_id = paramInt;
+		this.grade_3_id = layoutId;
 	}
 
-	public void onActivityCreated(Bundle paramBundle) {
-		super.onActivityCreated(paramBundle);
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		Log.d(TAG, "onActivityCreated方法");
 		new Thread(new LoadDataRunnable(this.grade_3_id)).start();
 	}
 
-	public void onAttach(Activity paramActivity) {
-		super.onAttach(paramActivity);
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
 		Log.d(TAG, "onAttach方法");
-		this.loadDataProgress = ProgressDialog.show(paramActivity, "正在加载数据...",
+		this.dataProgress = ProgressDialog.show(activity, "正在加载数据...",
 				null, true, false);
 	}
 
@@ -93,11 +94,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
+	public View onCreateView(LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView方法");
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+		this.currentView = inflater.inflate(this.layoutId,
+				container, false);
 		this.currentView.setFocusable(true);
 		return this.currentView;
 	}
@@ -128,15 +129,15 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 		}
 
 		public void run() {
-			Message localMessage = Message.obtain();
-			Bundle localBundle = new Bundle();
+			Message message = Message.obtain();
+			Bundle bundle = new Bundle();
 			int i = DetailClient.detailList(this.key).size();
-			Detail localDetail = null;
+			Detail detail = null;
 			if (i > 0)
-				localDetail = (Detail) DetailClient.detailList(this.key).get(0);
-			localBundle.putSerializable("detail", localDetail);
-			localMessage.setData(localBundle);
-			DetailFragment.this.loadDataHandler.sendMessage(localMessage);
+				detail = (Detail) DetailClient.detailList(this.key).get(0);
+			bundle.putSerializable("detail", detail);
+			message.setData(bundle);
+			DetailFragment.this.dataHandler.sendMessage(message);
 		}
 	}
 }

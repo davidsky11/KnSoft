@@ -1,15 +1,12 @@
 package com.kn.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,7 +19,6 @@ import com.kn.adapter.ShangChuanFailAdapter;
 import com.kn.entity.FailData;
 import com.kn.utils.NetworkUtils;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShuJuShangChuanFragment extends Fragment implements
 		View.OnClickListener {
@@ -58,24 +54,23 @@ public class ShuJuShangChuanFragment extends Fragment implements
 				ShuJuShangChuanFragment.this.progressBar_shangChuan
 						.incrementProgressBy(1);
 				Log.d(TAG, message.obj.toString());
-				ArrayList localArrayList = new ArrayList();
+				ArrayList list = new ArrayList();
 				for (int i = 0;; i++) {
 					if (i >= 10) {
 						ShuJuShangChuanFragment.this.shangChuanFailAdapter = new ShangChuanFailAdapter(
 								ShuJuShangChuanFragment.this.getActivity()
-										.getApplicationContext(),
-								localArrayList);
+										.getApplicationContext(), list);
 						ShuJuShangChuanFragment.this.listView_fail
 								.setAdapter(ShuJuShangChuanFragment.this.shangChuanFailAdapter);
 						ShuJuShangChuanFragment.this.shangChuanFailAdapter
 								.notifyDataSetChanged();
 						return;
 					}
-					FailData localFailData = new FailData();
-					localFailData.setId(i);
-					localFailData.setDanJuHao(String.valueOf(i + (i + i)));
-					localFailData.setSaoMiaoLeiXing("收件");
-					localArrayList.add(localFailData);
+					FailData data = new FailData();
+					data.setId(i);
+					data.setDanJuHao(String.valueOf(i + (i + i)));
+					data.setSaoMiaoLeiXing("收件");
+					list.add(data);
 				}
 			}
 		}
@@ -84,24 +79,27 @@ public class ShuJuShangChuanFragment extends Fragment implements
 	public ShuJuShangChuanFragment() {
 
 	}
-	
-	public ShuJuShangChuanFragment(int paramInt) {
-		this.layoutId = paramInt;
+
+	public ShuJuShangChuanFragment(int layoutId) {
+		this.layoutId = layoutId;
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.button_fanHuiZhuJieMian:
+			Log.d(TAG, "返回主界面");
 		default:
 			return;
 		case R.id.button_shangChuan_begin:
+			Log.d(TAG, "开始上传");
 			if (NetworkUtils
 					.checkNetwork(getActivity().getApplicationContext())) {
-				 new Thread(new ShangChuanRunnable()).start();
+				new Thread(new ShangChuanRunnable()).start();
 				return;
+			} else {
+				Toast.makeText(getActivity().getApplicationContext(),
+						"网络连接错误！", 1).show();
 			}
-			Toast.makeText(getActivity().getApplicationContext(), "网络连接错误！", 1)
-					.show();
 			return;
 		case R.id.button_shangChuan_stop:
 			Log.d(TAG, "中止上传");
@@ -110,14 +108,13 @@ public class ShuJuShangChuanFragment extends Fragment implements
 		}
 	}
 
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater paramLayoutInflater,
-			ViewGroup paramViewGroup, Bundle paramBundle) {
-		this.currentView = paramLayoutInflater.inflate(this.layoutId,
-				paramViewGroup, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.progressBar_shangChuan = ((ProgressBar) this.currentView
 				.findViewById(R.id.progressBar_shangChuan));
@@ -156,22 +153,22 @@ public class ShuJuShangChuanFragment extends Fragment implements
 				return;
 			i++;
 			while (true) {
-				Message localMessage;
+				Message message;
 				try {
-					localMessage = Message.obtain();
-					localMessage.obj = Integer.valueOf(i);
+					message = Message.obtain();
+					message.obj = Integer.valueOf(i);
 					if (i >= MAX)
 						// break label74;
-						localMessage.what = CONTINUE;
+						message.what = CONTINUE;
+					if (i != MAX)
+						message.what = FINISH;
 					ShuJuShangChuanFragment.this.shangChuanHandler
-							.sendMessage(localMessage);
+							.sendMessage(message);
 					Thread.sleep(1000L);
-				} catch (InterruptedException localInterruptedException) {
-					localInterruptedException.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 				break;
-				// if (i != 15)
-				// localMessage.what = FINISH;
 			}
 		}
 	}

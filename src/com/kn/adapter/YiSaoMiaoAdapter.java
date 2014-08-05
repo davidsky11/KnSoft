@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YiSaoMiaoAdapter extends BaseAdapter {
+
 	private Context context = null;
 	private List<ShouJian> shouJianList = null;
 
-	public YiSaoMiaoAdapter(Context paramContext) {
-		this.context = paramContext;
+	public YiSaoMiaoAdapter(Context context) {
+		this.context = context;
 		this.shouJianList = new ArrayList();
 		for (int i = 0;; i++) {
 			if (i >= 5)
@@ -33,19 +34,19 @@ public class YiSaoMiaoAdapter extends BaseAdapter {
 		return this.shouJianList.size();
 	}
 
-	public Object getItem(int paramInt) {
-		return this.shouJianList.get(paramInt);
+	public Object getItem(int position) {
+		return this.shouJianList.get(position);
 	}
 
-	public long getItemId(int paramInt) {
-		return paramInt;
+	public long getItemId(int position) {
+		return position;
 	}
 
-	public View getView(int paramInt, View view, ViewGroup viewGroup) {
-		ShouJian localShouJian = (ShouJian) getItem(paramInt);
+	public View getView(int position, View view, ViewGroup container) {
+		ShouJian localShouJian = (ShouJian) getItem(position);
 		if (view == null)
-			view = LayoutInflater.from(this.context).inflate(R.layout.yi_sao_miao_item,
-					null);
+			view = LayoutInflater.from(this.context).inflate(
+					R.layout.yi_sao_miao_item, null);
 		((TextView) view.findViewById(R.id.text_title)).setText(localShouJian
 				.getTiaoma());
 		return view;

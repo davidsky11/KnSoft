@@ -13,35 +13,35 @@ public class ShouJian implements Serializable {
 	private String yewuyuan_id;
 
 	public int getId() {
-		return this.id;
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Date getShoujian_date() {
-		return this.shoujian_date;
+		return shoujian_date;
+	}
+
+	public void setShoujian_date(Date shoujian_date) {
+		this.shoujian_date = shoujian_date;
 	}
 
 	public String getTiaoma() {
-		return this.tiaoma;
+		return tiaoma;
+	}
+
+	public void setTiaoma(String tiaoma) {
+		this.tiaoma = tiaoma;
 	}
 
 	public String getYewuyuan_id() {
-		return this.yewuyuan_id;
+		return yewuyuan_id;
 	}
 
-	public void setId(int paramInt) {
-		this.id = paramInt;
-	}
-
-	public void setShoujian_date(Date paramDate) {
-		this.shoujian_date = paramDate;
-	}
-
-	public void setTiaoma(String paramString) {
-		this.tiaoma = paramString;
-	}
-
-	public void setYewuyuan_id(String paramString) {
-		this.yewuyuan_id = paramString;
+	public void setYewuyuan_id(String yewuyuan_id) {
+		this.yewuyuan_id = yewuyuan_id;
 	}
 
 	public String toString() {

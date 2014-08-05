@@ -1,17 +1,18 @@
 package com.kn.fragment;
 
-import com.kn.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import com.kn.R;
 
 public class YunDanZhuiZongFragment extends Fragment implements
 		View.OnClickListener {
+
 	private static final String TAG = "运单追踪Fragment";
+
 	private View currentView;
 	private int layoutId = R.layout.yun_dan_zhui_zong;
 
@@ -25,10 +26,9 @@ public class YunDanZhuiZongFragment extends Fragment implements
 	public void onClick(View paramView) {
 	}
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup paramViewGroup,
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		this.currentView = inflater.inflate(this.layoutId, paramViewGroup,
-				false);
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		return this.currentView;
 	}

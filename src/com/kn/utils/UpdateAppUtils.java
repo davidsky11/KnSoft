@@ -27,7 +27,8 @@ public final class UpdateAppUtils extends BaseClient {
 	private static final String TYPE = "application/vnd.android.package-archive";
 
 	public static boolean checkAppCode(Context context) {
-		Log.i(TAG, "currentAppDode : " + currentAppCode(context) + "\t serviceAppCode : " + serviceAppCode());
+		Log.i(TAG, "currentAppDode : " + currentAppCode(context)
+				+ "\t serviceAppCode : " + serviceAppCode());
 		return currentAppCode(context) < serviceAppCode();
 	}
 
@@ -38,35 +39,33 @@ public final class UpdateAppUtils extends BaseClient {
 					PackageManager.COMPONENT_ENABLED_STATE_DEFAULT).versionCode;
 			Log.d(TAG, "currentAppCode " + String.valueOf(i));
 			return i;
-		} catch (PackageManager.NameNotFoundException localNameNotFoundException) {
-			localNameNotFoundException.printStackTrace();
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
 		}
 		return i;
 	}
 
 	public static boolean downApp(Context context) {
-		boolean flag = true;
+		boolean flag = false;
 		try {
-			HttpURLConnection conn = (HttpURLConnection) new URL(
-					APK_URL).openConnection();
+			HttpURLConnection conn = (HttpURLConnection) new URL(APK_URL)
+					.openConnection();
 			conn.connect();
-			InputStream is = conn
-					.getInputStream();
-			FileOutputStream fos = context
-					.openFileOutput(APK_FILE_NAME, Context.MODE_WORLD_READABLE);
+			InputStream is = conn.getInputStream();
+			FileOutputStream fos = context.openFileOutput(APK_FILE_NAME,
+					Context.MODE_WORLD_READABLE);
 			byte[] arrayOfByte = new byte[1024];
 			while (true) {
 				int j = is.read(arrayOfByte);
 				if (j == -1) {
 					fos.flush();
 					is.close();
-					return true;
+					flag = true;
 				}
 				fos.write(arrayOfByte, 0, j);
 			}
-		} catch (Exception localException) {
-			localException.printStackTrace();
-			flag = false;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return flag;
 	}
@@ -83,16 +82,15 @@ public final class UpdateAppUtils extends BaseClient {
 
 	public static int serviceAppCode() {
 		try {
-			SoapObject request = getSoapObject(null, SERVICE_NAME,
-					METHOD_NAME);
+			SoapObject request = getSoapObject(null, SERVICE_NAME, METHOD_NAME);
 			if (request == null)
 				return -1;
 			Log.e(TAG, "serviceAppCode " + request.getProperty(0));
-			int i = Integer.parseInt(((SoapObject) request
-					.getProperty(0)).getProperty("versionCode").toString());
+			int i = Integer.parseInt(((SoapObject) request.getProperty(0))
+					.getProperty("versionCode").toString());
 			return i;
-		} catch (Exception localException) {
-			localException.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return -1;
 	}

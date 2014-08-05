@@ -69,9 +69,9 @@ public class DanBiDeleteFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		this.currentView = inflater.inflate(this.layoutId, viewGroup, false);
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.spinner_caoZuo_type = ((Spinner) this.currentView
 				.findViewById(R.id.spinner_caoZuo_type));
@@ -100,13 +100,13 @@ public class DanBiDeleteFragment extends Fragment implements
 		private OnItemSelectedListenerImpl() {
 		}
 
-		public void onItemSelected(AdapterView<?> adapterView, View view,
-				int paramInt, long paramLong) {
-			Log.d(TAG, ((Adapter) adapterView.getAdapter()).getItem(paramInt)
+		public void onItemSelected(AdapterView<?> parent, View view,
+				int position, long id) {
+			Log.d(TAG, ((Adapter) parent.getAdapter()).getItem(position)
 					.toString());
 		}
 
-		public void onNothingSelected(AdapterView<?> paramAdapterView) {
+		public void onNothingSelected(AdapterView<?> parent) {
 		}
 	}
 }

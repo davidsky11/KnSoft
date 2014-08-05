@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, VERSION);
 	}
-
+	
 	public void close() {
 
 	}
@@ -29,14 +29,14 @@ public class DBHelper extends SQLiteOpenHelper {
 		database.execSQL(USER_CREATE_SQL);
 	}
 
-	public void onUpgrade(SQLiteDatabase database, int paramInt1,
-			int paramInt2) {
+	public void onUpgrade(SQLiteDatabase database, int old_version,
+			int new_version) {
 		this.database = database;
 		database.execSQL(DETAILS_DROP_SQL);
 		database.execSQL(USER_DROP_SQL);
 	}
 
-	public <T> void save(T paramT) {
+	public <T> void save(T t) {
 		this.database = getWritableDatabase();
 		new ContentValues();
 	}

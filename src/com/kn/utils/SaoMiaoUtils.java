@@ -1,24 +1,19 @@
 package com.kn.utils;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.AssetManager;
-import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 
 public final class SaoMiaoUtils {
 
@@ -36,50 +31,49 @@ public final class SaoMiaoUtils {
 		if ((ZXING_PACKAGE_NAME == null) || ("".equals(ZXING_PACKAGE_NAME)))
 			return false;
 		try {
-			ApplicationInfo localApplicationInfo = fragment
+			ApplicationInfo ai = fragment
 					.getActivity()
 					.getPackageManager()
 					.getApplicationInfo(ZXING_PACKAGE_NAME,
 							PackageManager.GET_UNINSTALLED_PACKAGES);
-			Log.d(TAG, "*" + localApplicationInfo.enabled);
-			Log.i(TAG, "checkZXingAppExist >>>  是否存在 ： "
-					+ localApplicationInfo.enabled);
-			return localApplicationInfo.enabled;
-		} catch (PackageManager.NameNotFoundException localNameNotFoundException) {
+			Log.d(TAG, "*" + ai.enabled);
+			Log.i(TAG, "checkZXingAppExist >>>  是否存在 ： " + ai.enabled);
+			return ai.enabled;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
 
 	private static void installZXingApp(Fragment fragment) {
-		Intent localIntent = new Intent();
-		localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		localIntent.setAction(Intent.ACTION_DEFAULT);
-		AssetManager localAssetManager = fragment.getActivity().getAssets();
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(Intent.ACTION_DEFAULT);
+		AssetManager am = fragment.getActivity().getAssets();
 		try {
-			InputStream localInputStream = localAssetManager.open(ZXING_FILE);
-			FileOutputStream localFileOutputStream = fragment.getActivity()
-					.openFileOutput(ZXING_FILE, Context.MODE_WORLD_READABLE);
+			InputStream is = am.open(ZXING_FILE);
+			FileOutputStream fos = fragment.getActivity().openFileOutput(
+					ZXING_FILE, Context.MODE_WORLD_READABLE);
 			byte[] arrayOfByte = new byte[1024];
 			while (true) {
-				int i = localInputStream.read(arrayOfByte);
+				int i = is.read(arrayOfByte);
 				if (i == -1) {
-					localFileOutputStream.flush();
-					if (localInputStream != null)
-						localInputStream.close();
-					if (localFileOutputStream != null)
-						localFileOutputStream.close();
-					localIntent.setDataAndType(
+					fos.flush();
+					if (is != null)
+						is.close();
+					if (fos != null)
+						fos.close();
+					intent.setDataAndType(
 							Uri.fromFile(new File(fragment.getActivity()
 									.getFilesDir().getPath()
 									+ File.separator + ZXING_FILE)), TYPE);
-					fragment.getActivity().startActivity(localIntent);
+					fragment.getActivity().startActivity(intent);
 					return;
 				}
-				localFileOutputStream.write(arrayOfByte, 0, i);
+				fos.write(arrayOfByte, 0, i);
 			}
-		} catch (Exception localException) {
-			while (true)
-				localException.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -90,24 +84,26 @@ public final class SaoMiaoUtils {
 
 	private static void showInstallAPKDialog(final Fragment fragment) {
 		installAPKDialog = new AlertDialog.Builder(fragment.getActivity());
-		
+
 		/**
-		 * 需要添加代码	显示安装APK的对话界面
+		 * 需要添加代码 显示安装APK的对话界面
 		 */
-		installAPKDialog.setMessage("您的设备尚未安装条码扫描器，是否安装？").setPositiveButton("安装", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				Log.i(TAG, "确认安装APK，开始安装...");
-				SaoMiaoUtils.installZXingApp(fragment);
-			}
-		}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-			}
-		}).create().show();
+		installAPKDialog.setMessage("您的设备尚未安装条码扫描器，是否安装？")
+				.setPositiveButton("安装", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Log.i(TAG, "确认安装APK，开始安装...");
+						SaoMiaoUtils.installZXingApp(fragment);
+					}
+				})
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				}).create().show();
 	}
 
 	public static void startSaoMiao(Fragment fragment) {

@@ -22,15 +22,18 @@ import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
 public class WenTiJianFragment extends Fragment implements View.OnClickListener {
+
 	private static final String[] SPINNER_DATA = { "1", "3", "2" };
 	private static final String TAG = "问题件Fragment";
+
+	private int layoutId = R.layout.wen_ti_jian;
+
 	private Button button_alter = null;
 	private Button button_back = null;
 	private Button button_commit = null;
 	private Button button_saomiao = null;
 	private View currentView;
 	private EditText edit_wenTiJian_description = null;
-	private int layoutId = R.layout.wen_ti_jian;
 	private ListView listView_yiSaoMiao = null;
 	private ArrayAdapter<String> spinnerAdapter = null;
 	private Spinner spinner_wenTiJian_type = null;
@@ -58,8 +61,8 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 		}
 	}
 
-	public void onClick(View paramView) {
-		switch (paramView.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.button_back:
 		case R.id.button_commit:
 		default:
@@ -79,10 +82,9 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater inflater,
-			ViewGroup container, Bundle savedInstanceState) {
-		this.currentView = inflater.inflate(this.layoutId,
-				container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		this.spinner_wenTiJian_type = ((Spinner) this.currentView
 				.findViewById(R.id.spinner_wenTiJian_type));
@@ -94,15 +96,18 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 				.findViewById(R.id.text_daiTiJiao));
 		this.listView_yiSaoMiao = ((ListView) this.currentView
 				.findViewById(R.id.listView_yiSaoMiao));
-		this.button_alter = ((Button) this.currentView.findViewById(R.id.button_alter));
+		this.button_alter = ((Button) this.currentView
+				.findViewById(R.id.button_alter));
 		this.button_commit = ((Button) this.currentView
 				.findViewById(R.id.button_commit));
-		this.button_back = ((Button) this.currentView.findViewById(R.id.button_back));
+		this.button_back = ((Button) this.currentView
+				.findViewById(R.id.button_back));
 		this.button_saomiao = ((Button) this.currentView
 				.findViewById(R.id.button_saomiao));
-		this.spinnerAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item,
-				SPINNER_DATA);
-		this.spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		this.spinnerAdapter = new ArrayAdapter(getActivity(),
+				android.R.layout.simple_spinner_item, SPINNER_DATA);
+		this.spinnerAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_wenTiJian_type.setAdapter(this.spinnerAdapter);
 		this.spinner_wenTiJian_type.setVisibility(0);
 		this.spinner_wenTiJian_type
@@ -116,19 +121,19 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 
 	private class OnItemSelectedListenerImpl implements
 			AdapterView.OnItemSelectedListener {
-		
+
 		private OnItemSelectedListenerImpl() {
-			
+
 		}
 
-		public void onItemSelected(AdapterView<?> paramAdapterView,
-				View paramView, int paramInt, long paramLong) {
+		public void onItemSelected(AdapterView<?> parent, View view,
+				int position, long id) {
 			WenTiJianFragment.this.edit_wenTiJian_description
-					.setText(WenTiJianFragment.SPINNER_DATA[paramInt]);
+					.setText(WenTiJianFragment.SPINNER_DATA[position]);
 		}
 
-		public void onNothingSelected(AdapterView<?> paramAdapterView) {
-			
+		public void onNothingSelected(AdapterView<?> parent) {
+
 		}
 	}
 }

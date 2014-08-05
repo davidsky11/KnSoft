@@ -24,25 +24,25 @@ public class ShangChuanFailAdapter extends BaseAdapter {
 		return this.failList.size();
 	}
 
-	public Object getItem(int paramInt) {
-		return this.failList.get(paramInt);
+	public Object getItem(int position) {
+		return this.failList.get(position);
 	}
 
-	public long getItemId(int paramInt) {
-		return paramInt;
+	public long getItemId(int position) {
+		return position;
 	}
 
-	public View getView(int paramInt, View view, ViewGroup viewGroup) {
-		FailData localFailData = (FailData) getItem(paramInt);
+	public View getView(int position, View view, ViewGroup viewGroup) {
+		FailData data = (FailData) getItem(position);
 		if (view == null)
 			view = LayoutInflater.from(this.context).inflate(R.layout.shang_chuan_fail_item,
 					null);
-		TextView localTextView1 = (TextView) view.findViewById(R.id.text_id);
-		TextView localTextView2 = (TextView) view.findViewById(R.id.text_danJuHao);
-		TextView localTextView3 = (TextView) view.findViewById(R.id.text_saoMiaoLeiXing);
-		localTextView1.setText(String.valueOf(localFailData.getId()));
-		localTextView2.setText(localFailData.getDanJuHao());
-		localTextView3.setText(localFailData.getSaoMiaoLeiXing());
+		TextView tv1 = (TextView) view.findViewById(R.id.text_id);
+		TextView tv2 = (TextView) view.findViewById(R.id.text_danJuHao);
+		TextView tv3 = (TextView) view.findViewById(R.id.text_saoMiaoLeiXing);
+		tv1.setText(String.valueOf(data.getId()));
+		tv2.setText(data.getDanJuHao());
+		tv3.setText(data.getSaoMiaoLeiXing());
 		return view;
 	}
 }
