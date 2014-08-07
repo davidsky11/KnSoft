@@ -11,7 +11,7 @@ import com.kn.R;
 public class YunDanZhuiZongFragment extends Fragment implements
 		View.OnClickListener {
 
-	private static final String TAG = "运单追踪Fragment";
+//	private static final String TAG = "运单追踪Fragment";
 
 	private View currentView;
 	private int layoutId = R.layout.yun_dan_zhui_zong;

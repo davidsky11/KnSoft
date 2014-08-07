@@ -30,11 +30,10 @@ public class ChaKanPeiZhiFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 	}
 
-	public View onCreateView(LayoutInflater inflater,
-			ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		Log.d(TAG, "*onCreateView");
-		this.currentView = inflater.inflate(this.layoutId,
-				container, false);
+		this.currentView = inflater.inflate(this.layoutId, container, false);
 		this.currentView.setFocusable(true);
 		Log.d(TAG, "*focus:" + this.currentView.isFocusable());
 		this.button_back_ckpz = ((Button) this.currentView

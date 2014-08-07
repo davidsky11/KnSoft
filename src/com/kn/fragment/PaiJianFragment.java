@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
@@ -55,6 +56,8 @@ public class PaiJianFragment extends Fragment implements View.OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_back:
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		case R.id.button_commit:
 		case R.id.button_useCurrentUser:
 		case R.id.button_confirm:

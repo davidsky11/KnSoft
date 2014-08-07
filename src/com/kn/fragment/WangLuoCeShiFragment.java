@@ -6,13 +6,13 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.kn.R;
 import com.kn.async.NetworkAsyncTask;
+import com.kn.utils.FragmentUtils;
 
 public class WangLuoCeShiFragment extends Fragment implements
 		View.OnClickListener {
@@ -38,6 +38,8 @@ public class WangLuoCeShiFragment extends Fragment implements
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_back:
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		default:
 			return;
 		case R.id.button_yanChi:

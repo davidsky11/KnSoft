@@ -19,7 +19,7 @@ public class NetworkSpeedAsyncTask extends AsyncTask<String, Integer, String> {
 	public NetworkSpeedAsyncTask(Context context, TextView textView) {
 		Log.d(TAG, "NetworkAsyncTask");
 		this.text_show = textView;
-		this.networkDialog = new ProgressDialog(context, 0);
+		this.networkDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
 		this.networkDialog.setTitle("正在测网速，请稍后...");
 		this.networkDialog.setCancelable(false);
 		this.networkDialog.setProgressStyle(0);

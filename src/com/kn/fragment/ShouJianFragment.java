@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
@@ -56,10 +57,17 @@ public class ShouJianFragment extends Fragment implements View.OnClickListener {
 		switch (view.getId()) {
 
 		case R.id.button_back:
+			FragmentUtils.popBackStack(getFragmentManager());
 			return;
 		case R.id.button_commit:
+			
+			return;
 		case R.id.button_useCurrentUser:
+			
+			return;
 		case R.id.button_confirm:
+			
+			return;
 		default:
 			return;
 		case R.id.button_alter:

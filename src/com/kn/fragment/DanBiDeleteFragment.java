@@ -1,5 +1,6 @@
 package com.kn.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
@@ -42,19 +44,19 @@ public class DanBiDeleteFragment extends Fragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode != 0) {
 			Log.e(TAG, "未找到调用者");
-			if (resultCode == 0) {
+			if (resultCode == Activity.RESULT_CANCELED) {
 				String str1 = data.getStringExtra("SCAN_RESULT");
 				String str2 = data.getStringExtra("SCAN_RESULT_FORMAT");
 				Log.e(TAG, "内容：" + str1 + ",格式：" + str2);
 				Log.e(TAG, "操作取消");
 			}
-			return;
 		}
 	}
 
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_back:
+			FragmentUtils.popBackStack(getFragmentManager());
 			return;
 		case R.id.button_commit:
 		default:

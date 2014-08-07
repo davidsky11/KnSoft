@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.kn.R;
 import com.kn.adapter.ShangChuanFailAdapter;
 import com.kn.entity.FailData;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.NetworkUtils;
 import java.util.ArrayList;
 
@@ -47,12 +48,12 @@ public class ShuJuShangChuanFragment extends Fragment implements
 				return;
 			case CONTINUE:
 				ShuJuShangChuanFragment.this.progressBar_shangChuan
-						.incrementProgressBy(1);
+						.incrementProgressBy(ProgressBar.ACCESSIBILITY_LIVE_REGION_POLITE);
 				Log.d(TAG, message.obj.toString());
 				return;
 			case FINISH:
 				ShuJuShangChuanFragment.this.progressBar_shangChuan
-						.incrementProgressBy(1);
+						.incrementProgressBy(ProgressBar.ACCESSIBILITY_LIVE_REGION_POLITE);
 				Log.d(TAG, message.obj.toString());
 				ArrayList list = new ArrayList();
 				for (int i = 0;; i++) {
@@ -88,6 +89,8 @@ public class ShuJuShangChuanFragment extends Fragment implements
 		switch (view.getId()) {
 		case R.id.button_fanHuiZhuJieMian:
 			Log.d(TAG, "返回主界面");
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		default:
 			return;
 		case R.id.button_shangChuan_begin:
@@ -98,13 +101,14 @@ public class ShuJuShangChuanFragment extends Fragment implements
 				return;
 			} else {
 				Toast.makeText(getActivity().getApplicationContext(),
-						"网络连接错误！", 1).show();
+						"网络连接错误！", Toast.LENGTH_LONG).show();
 			}
 			return;
 		case R.id.button_shangChuan_stop:
 			Log.d(TAG, "中止上传");
 			this.stop_thread = true;
 			this.button_shangChuan_stop.setEnabled(false);
+			return;
 		}
 	}
 

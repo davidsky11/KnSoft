@@ -1,5 +1,7 @@
 package com.kn.activity;
 
+import java.util.Calendar;
+
 import com.kn.R;
 import com.kn.fragment.BaseFragment;
 import com.kn.fragment.ChaKanPeiZhiFragment;
@@ -106,7 +108,7 @@ public class MainActivity extends FragmentActivity {
 				return;
 			case CHECK_APP_FLAG_FALSE:
 				MainActivity.this.checkAppProgress.dismiss();
-				Toast.makeText(MainActivity.this, "您的应用已是最新，无需更新！", 0).show();
+				Toast.makeText(MainActivity.this, "您的应用已是最新，无需更新！", Toast.LENGTH_SHORT).show();
 				return;
 			case DOWN_APP_FLAG_SUCCESS:
 				MainActivity.this.checkAppProgress.dismiss();
@@ -114,7 +116,7 @@ public class MainActivity extends FragmentActivity {
 				return;
 			case DOWN_APP_FLAG_FALIURE:
 				MainActivity.this.checkAppProgress.dismiss();
-				Toast.makeText(MainActivity.this, "更新失败，请重新更新！", 0).show();
+				Toast.makeText(MainActivity.this, "更新失败，请重新更新！", Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
@@ -126,6 +128,7 @@ public class MainActivity extends FragmentActivity {
 		super.requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.main);
 
+		Log.d(TAG, "getResources");
 		this.resources = getResources();
 		this.tabHost = ((TabHost) findViewById(android.R.id.tabhost));
 		this.tabs = ((TabWidget) findViewById(android.R.id.tabs));
@@ -160,11 +163,13 @@ public class MainActivity extends FragmentActivity {
 				.setIndicator(CHONG_XIN_DENG_LU,
 						this.resources.getDrawable(R.drawable.ic_cxdl))
 				.setContent(R.id.tab_chongXinDengLu));
-		setTabsText(this.tabHost);
+//		setTabsText(this.tabHost);
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int i = displayMetrics.widthPixels;
-		this.tabHost.setCurrentTab(0);
+		this.tabHost.setCurrentTab(0);		// 默认选中第一个Tab
+		Log.d(TAG, "渲染TAB");
+		Log.d(TAG, " 1  > " + String.valueOf(Calendar.getInstance().getTimeInMillis()));
 		for (int j = 0;; j++) {
 			if (j >= this.tabs.getChildCount()) {
 				this.gestureDetector = new GestureDetector(
@@ -199,8 +204,8 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float x,
-				float y) {
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
 			if (e2.getRawX() - e1.getRawX() > 80.0F) {
 				MainActivity.this.showNext();
 				return true;
@@ -219,7 +224,7 @@ public class MainActivity extends FragmentActivity {
 
 		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2,
-				float x, float y) {
+				float velocityX, float velocityY) {
 			
 			return false;
 		}
@@ -234,7 +239,6 @@ public class MainActivity extends FragmentActivity {
 
 			return false;
 		}
-
 	}
 
 	private class OnButtonClickListenerImpl implements View.OnClickListener {
@@ -338,28 +342,28 @@ public class MainActivity extends FragmentActivity {
 			case R.id.button_gengXinShuJu:
 				Log.d(TAG, "更新数据被点击");
 				MainActivity.this.gengXinShuJuDialog = new AlertDialog.Builder(
-						MainActivity.this, 3);
+						MainActivity.this, AlertDialog.THEME_HOLO_LIGHT);
 				MainActivity.this.gengXinShuJuDialog
 						.setSingleChoiceItems(
 								MainActivity.ITEMS_GENG_XIN_SHU_JU, 0,
 								new DialogInterface.OnClickListener() {
 									public void onClick(
-											DialogInterface paramDialogInterface,
-											int paramInt) {
-										switch (paramInt) {
+											DialogInterface dialog,
+											int which) {
+										switch (which) {
 										default:
 											return;
 										case 0:
-											Log.d(TAG, "which:" + paramInt);
-											paramDialogInterface.dismiss();
+											Log.d(TAG, "which:" + which);
+											dialog.dismiss();
 											return;
 										case 1:
-											Log.d(TAG, "which:" + paramInt);
-											paramDialogInterface.dismiss();
+											Log.d(TAG, "which:" + which);
+											dialog.dismiss();
 											return;
 										case 2:
-											Log.d(TAG, "which:" + paramInt);
-											paramDialogInterface.dismiss();
+											Log.d(TAG, "which:" + which);
+											dialog.dismiss();
 											return;
 										}
 									}
@@ -415,12 +419,12 @@ public class MainActivity extends FragmentActivity {
 		public void run() {
 			Message message = Message.obtain();
 			if (UpdateAppUtils.downApp(MainActivity.this
-					.getApplicationContext()))
-				;
-			for (message.what = DOWN_APP_FLAG_SUCCESS;; message.what = DOWN_APP_FLAG_FALIURE) {
-				MainActivity.this.mainHandler.sendMessage(message);
-				return;
+					.getApplicationContext())){
+				message.what = DOWN_APP_FLAG_SUCCESS;
+			} else {
+				message.what = DOWN_APP_FLAG_FALIURE;
 			}
+			MainActivity.this.mainHandler.sendMessage(message);
 		}
 	}
 
@@ -444,20 +448,21 @@ public class MainActivity extends FragmentActivity {
 
 		public void run() {
 			Message message = Message.obtain();
-			if (UpdateAppUtils.checkAppCode(MainActivity.this))
-				;
-			for (message.what = CHECK_APP_FLAG_TRUE;; message.what = CHECK_APP_FLAG_FALSE) {
-				MainActivity.this.mainHandler.sendMessage(message);
-				return;
+			if (UpdateAppUtils.checkAppCode(MainActivity.this)) {
+				message.what = CHECK_APP_FLAG_TRUE;
+			} else {
+				message.what = CHECK_APP_FLAG_FALSE;
 			}
+			MainActivity.this.mainHandler.sendMessage(message);
 		}
 	}
 
 	private class OnTabViewClickListenerImpl implements View.OnClickListener {
 
 		private int position;
-
+		
 		public OnTabViewClickListenerImpl(int position) {
+			Log.d(TAG, String.valueOf(" 2  > " + Calendar.getInstance().getTimeInMillis()));
 			this.position = position;
 		}
 
@@ -531,14 +536,14 @@ public class MainActivity extends FragmentActivity {
 		Log.i(TAG, "before next touch:" + this.index);
 		TabHost localTabHost = this.tabHost;
 		int i = 0;
-		if (this.index == -1 + this.tabs.getChildCount())
+		if (this.index == this.tabs.getChildCount() -1)
 			i = 0;
 		while (true) {
 			this.index = i;
 			localTabHost.setCurrentTab(i);
 			this.tabs.setCurrentTab(this.index);
 			Log.i(TAG, "next:" + this.index);
-			i = 1 + this.index;
+			i = this.index + 1;
 			this.index = i;
 			return;
 		}
@@ -549,14 +554,14 @@ public class MainActivity extends FragmentActivity {
 		Log.i("MainActivity", "before pre touch:" + this.index);
 		TabHost localTabHost = this.tabHost;
 		int i = 0;
-		if (this.index == 0)
-			i = -1 + this.tabs.getChildCount();
+		if (0 == this.index)
+			i = this.tabs.getChildCount() - 1;
 		while (true) {
 			this.index = i;
 			localTabHost.setCurrentTab(i);
 			this.tabs.setCurrentTab(this.index);
 			Log.i("MainActivity", "pre:" + this.index);
-			i = -1 + this.index;
+			i = this.index - 1;
 			this.index = i;
 			return;
 		}
@@ -574,7 +579,7 @@ public class MainActivity extends FragmentActivity {
 
 		view.setOnTouchListener(new View.OnTouchListener() {
 
-			public boolean onTouch(View view, MotionEvent event) {
+			public boolean onTouch(View v, MotionEvent event) {
 				if ((MainActivity.this.popupWindow != null)
 						&& (MainActivity.this.popupWindow.isShowing())) {
 					MainActivity.this.popupWindow.dismiss();

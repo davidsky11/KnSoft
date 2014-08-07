@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
@@ -63,13 +64,8 @@ public class FaJianFragment extends Fragment implements View.OnClickListener {
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_back:
-			Log.i(TAG, "返回键被点击了.");
-			FragmentManager fm = getActivity().getSupportFragmentManager();
-			Log.i(TAG, " fm : " + fm);
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.remove(FaJianFragment.this);
-			ft.addToBackStack(null);
-			ft.commit();
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		case R.id.button_commit:
 		default:
 			return;
@@ -110,7 +106,7 @@ public class FaJianFragment extends Fragment implements View.OnClickListener {
 		this.spinnerAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_banCi.setAdapter(this.spinnerAdapter);
-		this.spinner_banCi.setVisibility(0);
+		this.spinner_banCi.setVisibility(View.VISIBLE);
 		ListViewUtils.listViewYiSaoMiao(this, this.listView_yiSaoMiao);
 		this.button_commit.setOnClickListener(this);
 		this.button_back.setOnClickListener(this);

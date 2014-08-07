@@ -6,10 +6,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
@@ -64,7 +63,11 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_back:
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		case R.id.button_commit:
+			
+			return;
 		default:
 			return;
 		case R.id.button_saomiao:
@@ -75,6 +78,7 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 			this.edit_wenTiJian_description.setFocusableInTouchMode(true);
 			this.edit_wenTiJian_description.setCursorVisible(true);
 			this.button_alter.setEnabled(false);
+			return;
 		}
 	}
 
@@ -109,7 +113,7 @@ public class WenTiJianFragment extends Fragment implements View.OnClickListener 
 		this.spinnerAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_wenTiJian_type.setAdapter(this.spinnerAdapter);
-		this.spinner_wenTiJian_type.setVisibility(0);
+		this.spinner_wenTiJian_type.setVisibility(View.VISIBLE);
 		this.spinner_wenTiJian_type
 				.setOnItemSelectedListener(new OnItemSelectedListenerImpl());
 		this.button_saomiao.setOnClickListener(this);

@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 import com.kn.utils.ListViewUtils;
 import com.kn.utils.SaoMiaoUtils;
 
@@ -62,6 +63,8 @@ public class LiuCangJianFragment extends Fragment implements
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_back:
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		case R.id.button_commit:
 		default:
 			return;
@@ -108,7 +111,7 @@ public class LiuCangJianFragment extends Fragment implements
 		this.spinnerAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_liuCangJian_type.setAdapter(this.spinnerAdapter);
-		this.spinner_liuCangJian_type.setVisibility(0);
+		this.spinner_liuCangJian_type.setVisibility(View.VISIBLE);
 		this.spinner_liuCangJian_type
 				.setOnItemSelectedListener(new OnItemSelectedListenerImpl());
 		this.button_saomiao.setOnClickListener(this);

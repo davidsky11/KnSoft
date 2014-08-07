@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.kn.R;
+import com.kn.utils.FragmentUtils;
 
 public class QuanBuDeleteFragment extends Fragment implements
 		View.OnClickListener {
@@ -36,8 +37,12 @@ public class QuanBuDeleteFragment extends Fragment implements
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_delete:
+			
+			return;
 		case R.id.button_fanHuiZhuJieMian:
 			Log.d(TAG, "返回主界面");
+			FragmentUtils.popBackStack(getFragmentManager());
+			return;
 		}
 	}
 
