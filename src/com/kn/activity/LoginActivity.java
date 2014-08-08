@@ -65,7 +65,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				LoginActivity.this.checkAppDialog = new AlertDialog.Builder(
 						LoginActivity.this, 0);
 				LoginActivity.this.checkAppDialog.setTitle("应用有更新，是否更新?");
-				LoginActivity.this.checkAppDialog.setPositiveButton("是",
+				LoginActivity.this.checkAppDialog.setNegativeButton("是",
 						new DialogInterface.OnClickListener() {
 							public void onClick(
 									DialogInterface paramDialogInterface,
@@ -155,7 +155,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			Message message = Message.obtain();
 			Log.i(TAG, "CheckAppRunnable");
 			Boolean flag = false;
-			if (flag = UpdateAppUtils.checkAppCode(LoginActivity.this)){
+			if (flag == UpdateAppUtils.checkAppCode(LoginActivity.this)){
 				message.what = CHECK_APP_FLAG_TRUE;
 			} else {
 				message.what = CHECK_APP_FLAG_FALSE;
