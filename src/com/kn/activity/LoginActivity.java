@@ -104,6 +104,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		}
 	};
 
+	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.button_loginoff:
@@ -127,7 +128,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		}
 	}
 
-	protected void onCreate(Bundle savedInstanceState) {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
@@ -144,7 +146,45 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				true, false);
 		new Thread(new CheckAppRunnable()).start();
 	}
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+	
+	@Override
+	public void onStart() {
+		super.onRestart();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		// 取消所有的消息的处理，包括待处理的消息
+		mainHandler.removeCallbacksAndMessages(null);	
+	}
+	
 	private class CheckAppRunnable implements Runnable {
 
 		private CheckAppRunnable() {
