@@ -22,6 +22,9 @@ public class DBHelper extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, factory, VERSION);
 	}
 	
+	/**
+	 * 关闭数据库连接
+	 */
 	public void close() {
 		db.close();
 	}
