@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 public class NetworkAsyncTask extends AsyncTask<Integer, Integer, String> {
 	
-	private static final String IP_ADDRESS = "www.csdn.net";
-	private static final int MAX_COUNT = 4;
+//	private static final String IP_ADDRESS = "www.csdn.net";
+//	private static final int MAX_COUNT = 4;
 	private static final String TAG = "NetworkAsyncTask";
 	private Context context = null;
 	private ProgressDialog networkDialog = null;
@@ -35,7 +35,7 @@ public class NetworkAsyncTask extends AsyncTask<Integer, Integer, String> {
 	}
 
 	// ERROR //
-	protected String doInBackground(Integer[] array) {
+	protected String doInBackground(Integer... array) {
 		
 		return null;
 	}
@@ -45,9 +45,9 @@ public class NetworkAsyncTask extends AsyncTask<Integer, Integer, String> {
 		Log.d(TAG, "onPostExecute");
 		if (("".equals(result)) || (result == null)) {
 			if (this.param.intValue() != 1)
-				Toast.makeText(this.context, "Ping失败，请重新Ping！", 1).show();
+				Toast.makeText(this.context, "Ping失败，请重新Ping！", Toast.LENGTH_LONG).show();
 		}
-		Toast.makeText(this.context, "测速失败，请重新测速！", 1).show();
+		Toast.makeText(this.context, "测速失败，请重新测速！", Toast.LENGTH_LONG).show();
 
 		while (true) {
 			this.text_show.setText(result);
@@ -57,7 +57,7 @@ public class NetworkAsyncTask extends AsyncTask<Integer, Integer, String> {
 		}
 	}
 
-	protected void onProgressUpdate(Integer[] array) {
+	protected void onProgressUpdate(Integer... array) {
 		super.onProgressUpdate(array);
 		Log.d(TAG, "onProgressUpdate" + array[0]);
 		this.networkDialog.setProgress(array[0].intValue());

@@ -26,7 +26,7 @@ public class NetworkSpeedAsyncTask extends AsyncTask<String, Integer, String> {
 		this.networkDialog.show();
 	}
 
-	protected String doInBackground(String[] array) {
+	protected String doInBackground(String... array) {
 		Log.d(TAG, "doInBackground");
 		StringBuffer sb = new StringBuffer();
 		try {
@@ -67,7 +67,7 @@ public class NetworkSpeedAsyncTask extends AsyncTask<String, Integer, String> {
 		super.onPreExecute();
 	}
 
-	protected void onProgressUpdate(Integer[] array) {
+	protected void onProgressUpdate(Integer... array) {
 		super.onProgressUpdate(array);
 		Log.d(TAG, "onProgressUpdate");
 		this.networkDialog.setProgress(array[0].intValue());
